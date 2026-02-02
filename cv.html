@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Resume Review — Ofek 💼</title>
+
+  <style>
+    :root{
+      --bg1:#ffd6e7;
+      --bg2:#ffeef6;
+      --card:#ffffffcc;
+      --ink:#111827;
+      --muted:rgba(17,24,39,.72);
+      --line:rgba(17,24,39,.10);
+      --accent:#ff3b7a;
+      --accentHover:#ff1f68;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100svh;
+      display:grid;
+      place-items:center;
+      background: radial-gradient(circle at top, var(--bg2), var(--bg1));
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      color:var(--ink);
+      padding:16px;
+    }
+    .card{
+      width:min(960px, 94vw);
+      padding:22px 20px 26px;
+      background:var(--card);
+      backdrop-filter: blur(10px);
+      border-radius:22px;
+      box-shadow:0 18px 60px rgba(0,0,0,.15);
+      position:relative;
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+      flex-wrap:wrap;
+    }
+    .badge{
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.2px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.75);
+      box-shadow:0 10px 20px rgba(0,0,0,.08);
+      border:1px solid var(--line);
+      white-space:nowrap;
+    }
+    h1{
+      margin:6px 0 10px;
+      font-size: clamp(24px, 3.6vw, 40px);
+    }
+    .sub{
+      margin:0 0 18px;
+      color:var(--muted);
+      line-height:1.5;
+      max-width:80ch;
+      font-size:14px;
+    }
+
+    .section{
+      margin-top:14px;
+      border-top:1px solid var(--line);
+      padding-top:16px;
+    }
+    .section h2{
+      margin:0 0 10px;
+      font-size:18px;
+      letter-spacing:.2px;
+    }
+
+    .expGrid{
+      display:grid;
+      gap:12px;
+    }
+    .expCard{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.70);
+      border-radius:16px;
+      padding:14px 14px 12px;
+      box-shadow:0 12px 30px rgba(0,0,0,.08);
+    }
+    .expHeader{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:8px;
+    }
+    .expTitle{
+      font-weight:950;
+      font-size:15px;
+    }
+    .expRole{
+      font-size:13px;
+      color:rgba(17,24,39,.78);
+      font-weight:850;
+      background:rgba(255,255,255,.75);
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+    ul{
+      margin:8px 0 0 18px;
+      padding:0;
+      line-height:1.55;
+      color:rgba(17,24,39,.85);
+      font-size:14px;
+    }
+    li{ margin:6px 0; }
+
+    .link{
+      color:var(--accent);
+      font-weight:950;
+      text-decoration:none;
+      border-bottom:2px solid rgba(255,59,122,.25);
+      padding-bottom:1px;
+    }
+    .link:hover{
+      color:var(--accentHover);
+      border-bottom-color: rgba(255,31,104,.35);
+    }
+
+    .footerActions{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+    .btn{
+      padding:12px 16px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      font-weight:900;
+      box-shadow:0 10px 24px rgba(0,0,0,.14);
+      background:#111827;
+      color:#fff;
+      transition: transform .12s ease, opacity .12s ease;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .btn:active{transform:scale(.98)}
+    .btnGhost{
+      background:rgba(255,255,255,.75);
+      color:#111827;
+      border:1px solid var(--line);
+      box-shadow:0 10px 24px rgba(0,0,0,.10);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+    <div class="topbar">
+      <div class="badge">Resume Review (CV)</div>
+      <div class="badge">Candidate: Ofek • Reviewer: Shir</div>
+    </div>
+
+    <h1>Experience</h1>
+    <p class="sub">
+      A curated list of key roles and responsibilities across recent engagements (with measurable impact and excellent vibes).
+    </p>
+
+    <section class="section" aria-label="Experience">
+      <div class="expGrid">
+
+        <article class="expCard">
+          <div class="expHeader">
+            <div class="expTitle">🍸 Cocktail Bar — First Date</div>
+            <div class="expRole">Role: First-Date Prospect</div>
+          </div>
+          <ul>
+            <li>Demonstrated advanced multitasking: got completely lost in your face while still contributing occasionally to the conversation.</li>
+            <li>Learned quickly that your smile causes temporary loss of focus.</li>
+            <li>Strong collaborative environment — partner made it feel easy, fun, and natural
+              (<a class="link" href="eshet_hayel.html">Eshet Hayel</a>).
+            </li>
+          </ul>
+        </article>
+
+        <article class="expCard">
+          <div class="expHeader">
+            <div class="expTitle">🍣 Sushi Date</div>
+            <div class="expRole">Role: Foodie Specialist</div>
+          </div>
+          <ul>
+            <li>Displayed attentiveness and care (gluten-aware decision making).</li>
+            <li>Strong listening skills in a relaxed dining environment.</li>
+            <li>Gradual emotional openness (slowlyyyy, but genuinely).</li>
+            <li>Successful interaction with external stakeholders (friends and roommate).</li>
+            <li>Attraction confirmed through hands-on experience.</li>
+          </ul>
+        </article>
+
+        <article class="expCard">
+          <div class="expHeader">
+            <div class="expTitle">🌸 Your House — Unofficial Date</div>
+            <div class="expRole">Role: Overqualified but Clueless Expert</div>
+          </div>
+          <ul>
+            <li>Thoughtful preparation and attention to detail (flowers delivered on arrival).</li>
+            <li>Maintained respectful posture under high-attraction conditions (hands-crossed compliance).</li>
+            <li>Adapted quickly after receiving direct feedback (learning speed: impressive — <a class="link" href="eshet_hayel.html">Eshet Hayel</a>).</li>
+            <li>Displayed strong loyalty indicators — would gladly remain, but engagement concluded via successful exit (acquisition).</li>
+            <li>Memorable close-range engagement — exceptional eye contact (hard to forget).</li>
+          </ul>
+        </article>
+
+        <article class="expCard">
+          <div class="expHeader">
+            <div class="expTitle">🎬 Movie Date</div>
+            <div class="expRole">Role: Adaptable Driver & Professional Hand-Holder</div>
+          </div>
+          <ul>
+            <li>Demonstrated safe and confident driving under real-world distractions (arm touches, hair strokes — focus maintained).</li>
+            <li>Learned that red is my new favorite color (which says a lot coming from a Maccabi Tel Aviv fan) — it gives me a moment to slow down, take in the view, and enjoy the closeness. Green, officially declared as the worst color ever.</li>
+            <li>Adapted seamlessly to changing plans (walk postponed, movie selected — flexibility confirmed).</li>
+            <li>Maintained continuous, comfortable physical connection throughout engagement (hand-holding felt natural and easy).</li>
+            <li><b>Outcome:</b> clear desire to continue and deepen this connection.</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <div class="footerActions">
+      <button class="btn btnGhost" type="button" onclick="window.location.href='index.html'">← Back to Portal</button>
+      <button class="btn" type="button" onclick="window.scrollTo({top:0, behavior:'smooth'})">Back to Top ↑</button>
+    </div>
+  </main>
+</body>
+</html>
