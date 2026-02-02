@@ -73,6 +73,11 @@
       box-shadow: 0 10px 20px rgba(0,0,0,.08);
       border: 1px solid var(--line);
     }
+    .badgeStatus {
+  background: rgba(255, 214, 102, .65); /* soft yellow */
+  border: 1px solid rgba(180, 140, 0, .35);
+  color: #6b4f00;
+}
 
     .art {
       width: min(210px, 72vw);
@@ -307,7 +312,7 @@
   <main class="card">
     <div class="topbar">
       <div class="badge">Valentine Application Portal</div>
-      <div class="badge">Status: Under Review</div>
+      <div class="badge badgeStatus">Status: Under Review</div>
     </div>
 
     <!-- Heart envelope art -->
@@ -349,14 +354,14 @@
 
     <!-- Your exact explanation text -->
     <p class="sub" id="subText">
-      Valentine’s Day is February 14th. I would really like to take you out on that day so i submit my resume for you to review if you want and then decide 💗
+  Valentine’s Day is February 14th. I’d really love to take you out that day, so I’m officially submitting my resume for you to review and then decide 💗
     </p>
 
     <div class="metaRow" id="metaRow">
       <div class="pill">👤 Candidate: Ofek</div>
       <div class="pill">🧑‍💼 Reviewer: Shir</div>
       <div class="pill">📅 Role: Valentine Date (Feb 14)</div>
-      <div class="pill">📌 Stage: Final Decision</div>
+      <div class="pill">📌 Stage: Dating</div>
     </div>
 
     <div class="actions" id="actions">
@@ -375,7 +380,6 @@
       <div class="panelBody">
         <div><b>When:</b> Friday</div>
         <div><b>Agenda:</b> me + you + wine + sunset</div>
-        <div><b>Dress code:</b> whatever makes you feel good</div>
         <div class="miniRow">
           <div class="mini">🍷 Wine</div>
           <div class="mini">🌅 Sunset</div>
@@ -580,20 +584,20 @@
         dy /= mag;
 
         // Perpendicular spice
-        const side = (Math.random() - 0.5) * 0.9;
+        const side = (Math.random() - 0.5) * 1.6;
         const ax = dx + (-dy) * side;
         const ay = dy + ( dx) * side;
 
         // Stronger as Yes grows
-        const basePush = 130;
-        const push = basePush + (yesScale - 1) * 35;
+        const basePush = 220;
+        const push = basePush + (yesScale - 1) * 70;
 
         // Accelerate into velocity (glide)
         vx += ax * push * 0.08;
         vy += ay * push * 0.08;
 
         // Cap speed
-        const maxSpeed = 16;
+        const maxSpeed = 28;
         const speed = Math.hypot(vx, vy);
         if (speed > maxSpeed) {
           vx = (vx / speed) * maxSpeed;
