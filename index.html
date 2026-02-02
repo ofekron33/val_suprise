@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Will you be my Valentine?</title>
 
-  <!-- Confetti library (must be in <head> so it loads before our script runs) -->
+  <!-- Confetti library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
   <style>
@@ -30,7 +30,6 @@
       padding: 16px;
     }
 
-    /* FULL-SCREEN CONFETTI CANVAS */
     #confettiCanvas {
       position: fixed;
       inset: 0;
@@ -59,8 +58,14 @@
 
     h1 {
       font-size: clamp(26px, 4vw, 44px);
-      margin: 12px 0 18px;
-      text-transform: none;
+      margin: 12px 0 10px;
+    }
+
+    .sub {
+      margin: 0 0 18px;
+      font-size: 14px;
+      opacity: .78;
+      line-height: 1.35;
     }
 
     .button-zone {
@@ -99,14 +104,8 @@
       left: 62%;
       background: #e5e7eb;
       color: #111827;
-      /* makes movement look smoother */
+      /* Smooth movement */
       transition: left .06s linear, top .06s linear, transform .12s ease, background .12s ease;
-    }
-
-    .hint {
-      margin-top: 10px;
-      font-size: 13px;
-      opacity: .7;
     }
 
     .result {
@@ -122,10 +121,26 @@
 
     .fireworks {
       width: min(380px, 90vw);
-      margin: 0 auto;
+      margin: 0 auto 14px;
       display: block;
       border-radius: 14px;
     }
+
+    .backBtn {
+      position: static;
+      transform: none;
+      display: inline-block;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 800;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: #111827;
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(0,0,0,.14);
+    }
+    .backBtn:hover { opacity: .92; }
 
     @keyframes pop {
       from { transform: scale(.96); opacity: 0; }
@@ -138,7 +153,6 @@
   <canvas id="confettiCanvas"></canvas>
 
   <main class="card">
-    <!-- ANIMAL WITH HEART -->
     <svg class="art" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
         <linearGradient id="fur" x1="0" x2="1">
@@ -178,12 +192,15 @@
 
     <h1>nirali, will you be my valentine?</h1>
 
+    <!-- More explaining text (replaceable) -->
+    <p class="sub" id="subText">
+      Pick an answer. One of them is… slightly harder to choose. 😇
+    </p>
+
     <section class="button-zone" id="zone">
       <button id="yesBtn">Yes</button>
       <button id="noBtn">No</button>
     </section>
-
-    <div class="hint" id="hint">“No” seems a bit shy 😈</div>
 
     <section class="result" id="result">
       <h2>YAY! 🎉</h2>
@@ -192,20 +209,21 @@
         src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif"
         alt="Fireworks"
       />
+      <button class="backBtn" id="backBtn">Back</button>
     </section>
   </main>
 
   <script>
-    // Run only after the whole DOM is ready (prevents "nothing loads" issues)
     document.addEventListener("DOMContentLoaded", () => {
       const zone = document.getElementById("zone");
       const yesBtn = document.getElementById("yesBtn");
       const noBtn = document.getElementById("noBtn");
       const result = document.getElementById("result");
-      const hint = document.getElementById("hint");
+      const subText = document.getElementById("subText");
+      const backBtn = document.getElementById("backBtn");
       const confettiCanvas = document.getElementById("confettiCanvas");
 
-      // ---------- CONFETTI ----------
+      /* ---------- CONFETTI ---------- */
       function resizeConfettiCanvas() {
         const dpr = Math.max(1, window.devicePixelRatio || 1);
         confettiCanvas.width = Math.floor(window.innerWidth * dpr);
@@ -218,7 +236,6 @@
       window.addEventListener("resize", resizeConfettiCanvas);
       window.addEventListener("orientationchange", () => setTimeout(resizeConfettiCanvas, 150));
 
-      // If the CDN fails, don't break the page — just disable confetti
       const hasConfetti = typeof window.confetti === "function";
       const confettiInstance = hasConfetti
         ? window.confetti.create(confettiCanvas, { resize: false, useWorker: true })
@@ -251,22 +268,24 @@
         }, 300);
       }
 
-      // ---------- YES BUTTON ----------
+      /* ---------- YES BUTTON ---------- */
       let yesScale = 1;
       function growYes() {
         yesScale = Math.min(2.2, yesScale + 0.08);
         yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
       }
 
-      yesBtn.addEventListener("click", () => {
+      function showSuccess() {
         zone.style.display = "none";
-        hint.style.display = "none";
+        subText.style.display = "none";
         result.style.display = "block";
         resizeConfettiCanvas();
         fullScreenConfetti();
-      });
+      }
 
-      // ---------- NO BUTTON: SMART DODGE + ROTATING TEXT ----------
+      yesBtn.addEventListener("click", showSuccess);
+
+      /* ---------- NO BUTTON: ONLY WHEN HOVERING IT ---------- */
       const noTexts = [
         "No",
         "Care to reconsider?",
@@ -331,7 +350,6 @@
         const cx = b.left + b.width / 2;
         const cy = b.top + b.height / 2;
 
-        // Away vector (pointer -> center)
         let dx = cx - px;
         let dy = cy - py;
 
@@ -345,20 +363,16 @@
         dx /= mag;
         dy /= mag;
 
-        // Perpendicular spice
         const side = (Math.random() - 0.5) * 0.9;
         const ax = dx + (-dy) * side;
         const ay = dy + ( dx) * side;
 
-        // Stronger as Yes grows
         const basePush = 130;
         const push = basePush + (yesScale - 1) * 35;
 
-        // Accelerate into velocity (glide)
         vx += ax * push * 0.08;
         vy += ay * push * 0.08;
 
-        // Cap speed
         const maxSpeed = 16;
         const speed = Math.hypot(vx, vy);
         if (speed > maxSpeed) {
@@ -366,15 +380,12 @@
           vy = (vy / speed) * maxSpeed;
         }
 
-        // Apply movement
         noX += vx;
         noY += vy;
 
-        // Damping
         vx *= 0.78;
         vy *= 0.78;
 
-        // Clamp inside zone
         const maxX = z.width - b.width;
         const maxY = z.height - b.height;
 
@@ -385,41 +396,61 @@
         noBtn.style.top = `${noY}px`;
       }
 
-      let lastDodgeAt = 0;
-
-      zone.addEventListener("pointermove", (e) => {
-        initNoPositionIfNeeded();
-
-        const b = noBtn.getBoundingClientRect();
-        const cx = b.left + b.width / 2;
-        const cy = b.top + b.height / 2;
-
-        const d = Math.hypot(cx - e.clientX, cy - e.clientY);
-
-        const triggerDist = isTouch ? 190 : 150;
+      // Change only when actually interacting with the NO button
+      let lastChangeAt = 0;
+      function handleNoInteract(e) {
         const now = performance.now();
+        // throttle so it doesn't spam too fast
+        if (now - lastChangeAt < 240) return;
+        lastChangeAt = now;
 
-        if (d < triggerDist) {
-          dodgeFromPointer(e.clientX, e.clientY);
-
-          if (now - lastDodgeAt > 280) {
-            nextNoText();
-            growYes();
-            lastDodgeAt = now;
-          }
-        }
-      });
-
-      // On tap/click: dodge + rotate text (great for mobile)
-      noBtn.addEventListener("pointerdown", (e) => {
-        e.preventDefault();
         dodgeFromPointer(e.clientX, e.clientY);
         nextNoText();
         growYes();
+      }
+
+      // Desktop hover (ONLY on No button)
+      noBtn.addEventListener("pointerenter", (e) => {
+        if (!isTouch) handleNoInteract(e);
       });
 
-      // Prevent default click behavior (double safety)
+      noBtn.addEventListener("pointermove", (e) => {
+        if (!isTouch) handleNoInteract(e);
+      });
+
+      // Mobile tap (ONLY when trying to press No)
+      noBtn.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        handleNoInteract(e);
+      });
+
       noBtn.addEventListener("click", (e) => e.preventDefault());
+
+      /* ---------- BACK BUTTON (RESET) ---------- */
+      function resetAll() {
+        result.style.display = "none";
+        zone.style.display = "block";
+        subText.style.display = "block";
+
+        // reset Yes size
+        yesScale = 1;
+        yesBtn.style.transform = "translateY(-50%) scale(1)";
+
+        // reset No text + physics
+        noIndex = 0;
+        noBtn.textContent = "No";
+        noX = null;
+        noY = null;
+        vx = 0;
+        vy = 0;
+
+        // re-init position to original CSS left/top (remove any px overrides)
+        noBtn.style.left = "";
+        noBtn.style.top = "";
+        noBtn.style.transform = "translateY(-50%)";
+      }
+
+      backBtn.addEventListener("click", resetAll);
     });
   </script>
 </body>
