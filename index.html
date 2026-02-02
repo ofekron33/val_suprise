@@ -317,6 +317,12 @@
       from { transform: scale(.96); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
+    @media (max-width: 520px) {
+  .button-zone {
+    height: 220px;   /* was 170px */
+  }
+}
+    
   </style>
 </head>
 
@@ -570,52 +576,71 @@
         );
       }
 
-      // teleport far away from pointer
       function teleportNo(clientX, clientY) {
-        ensureNoAbsolutePositioning();
+  ensureNoAbsolutePositioning();
 
-        const z = zone.getBoundingClientRect();
-        const b = noBtn.getBoundingClientRect();
+  const z = zone.getBoundingClientRect();
+  const b = noBtn.getBoundingClientRect();
 
-        const maxX = Math.max(0, z.width - b.width);
-        const maxY = Math.max(0, z.height - b.height);
+  const maxX = Math.max(0, z.width - b.width);
+  let maxY = Math.max(0, z.height - b.height);
 
-        const px = clamp(clientX - z.left, 0, z.width);
-        const py = clamp(clientY - z.top, 0, z.height);
+  // On touch devices: keep teleports in the upper part of the zone
+  if (isTouch) {
+    maxY = Math.floor(maxY * 0.55);
+  }
 
-        const minJump = Math.min(360, Math.max(240, Math.min(z.width, z.height) * 0.60));
+  const px = clamp(clientX - z.left, 0, z.width);
+  const py = clamp(clientY - z.top, 0, z.height);
 
-        let best = { x: 0, y: 0, d: -1 };
-        for (let i = 0; i < 30; i++) {
-          const x = Math.random() * maxX;
-          const y = Math.random() * maxY;
+  const minJump = Math.min(
+    360,
+    Math.max(240, Math.min(z.width, z.height) * 0.60)
+  );
 
-          const cx = x + b.width / 2;
-          const cy = y + b.height / 2;
-          const d = Math.hypot(cx - px, cy - py);
+  let best = { x: 0, y: 0, d: -1 };
 
-          if (d > best.d) best = { x, y, d };
-          if (d >= minJump) {
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top  = `${y}px`;
-            return;
-          }
-        }
+  for (let i = 0; i < 30; i++) {
+    const x = Math.random() * maxX;
+    let y = Math.random() * maxY;   // ✅ let (not const)
 
-        noBtn.style.left = `${best.x}px`;
-        noBtn.style.top  = `${best.y}px`;
-      }
+    // Extra iPhone safety: keep it above the bottom of the screen
+    if (isTouch) {
+      const safetyBottom = window.innerHeight - 90;
+      const maxAllowedTop = safetyBottom - z.top - b.height;
+      y = Math.min(Math.max(y, 0), Math.max(0, maxAllowedTop)); // ✅ proper clamp
+    }
+
+    const cx = x + b.width / 2;
+    const cy = y + b.height / 2;
+    const d = Math.hypot(cx - px, cy - py);
+
+    if (d > best.d) best = { x, y, d };
+
+    if (d >= minJump) {
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top  = `${y}px`;
+      return;
+    }
+  }
+
+  // fallback: farthest found
+  noBtn.style.left = `${best.x}px`;
+  noBtn.style.top  = `${best.y}px`;
+}
 
       let lastHopAt = 0;
-      function hop(e) {
-        const now = performance.now();
-        if (now - lastHopAt < 90) return; // snappy, still controllable
-        lastHopAt = now;
 
-        teleportNo(e.clientX, e.clientY);
-        nextNoText();
-        growYes();
-      }
+function hop(e) {
+  const now = performance.now();
+  if (now - lastHopAt < 90) return; // throttle
+  lastHopAt = now;
+
+  teleportNo(e.clientX, e.clientY);
+  nextNoText();
+  growYes();
+}
+
 
       // Desktop: hop when hovering ON the No button
       noBtn.addEventListener("pointerenter", (e) => { if (!isTouch) hop(e); });
@@ -658,6 +683,7 @@
   </script>
 </body>
 </html>
+
 
 
 
