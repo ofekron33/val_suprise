@@ -217,7 +217,6 @@
       font-size: 13px;
     }
 
-    /* Buttons zone */
     .button-zone {
       position: relative;
       width: min(560px, 92%);
@@ -256,7 +255,7 @@
       left: 62%;
       background: #e5e7eb;
       color: #111827;
-      transition: left .04s linear, top .04s linear, transform .12s ease, background .12s ease;
+      transition: left .03s linear, top .03s linear, transform .12s ease, background .12s ease;
     }
 
     .result {
@@ -422,6 +421,9 @@
       const interviewPanel = document.getElementById("interviewPanel");
       const closePanelBtn = document.getElementById("closePanelBtn");
 
+      // one touch flag (ONLY ONCE)
+      const isTouch = window.matchMedia("(pointer: coarse)").matches;
+
       /* ---------- CV BUTTON ---------- */
       cvBtn.addEventListener("click", () => {
         window.location.href = "cv.html";
@@ -432,7 +434,9 @@
         interviewPanel.classList.toggle("open", open);
         interviewPanel.setAttribute("aria-hidden", String(!open));
       }
-      interviewBtn.addEventListener("click", () => setPanel(!interviewPanel.classList.contains("open")));
+      interviewBtn.addEventListener("click", () => {
+        setPanel(!interviewPanel.classList.contains("open"));
+      });
       closePanelBtn.addEventListener("click", () => setPanel(false));
 
       /* ---------- CONFETTI ---------- */
@@ -501,7 +505,7 @@
 
       yesBtn.addEventListener("click", showSuccess);
 
-      /* ---------- NO BUTTON: BIG TELEPORT JUMPS + ROTATING TEXT (ONLY ON NO) ---------- */
+      /* ---------- NO BUTTON: TELEPORT BIG JUMPS ---------- */
       const noTexts = [
         "No",
         "Care to reconsider?",
@@ -513,21 +517,14 @@
       ];
       let noIndex = 0;
 
-      const isTouch = window.matchMedia("(pointer: coarse)").matches;
-
       function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 
-      // Ensure we use left/top px positioning so teleporting is immediate.
       function ensureNoAbsolutePositioning() {
         const z = zone.getBoundingClientRect();
         const b = noBtn.getBoundingClientRect();
-
-        // Convert initial CSS percentage positioning into px once
         if (!noBtn.style.left || !noBtn.style.top) {
-          const x = b.left - z.left;
-          const y = b.top - z.top;
-          noBtn.style.left = `${x}px`;
-          noBtn.style.top = `${y}px`;
+          noBtn.style.left = `${b.left - z.left}px`;
+          noBtn.style.top  = `${b.top - z.top}px`;
           noBtn.style.transform = "none";
         }
       }
@@ -535,7 +532,6 @@
       function nextNoText() {
         noIndex = (noIndex + 1) % noTexts.length;
         noBtn.textContent = noTexts[noIndex];
-
         noBtn.animate(
           [
             { transform: "rotate(0deg) scale(1)" },
@@ -547,7 +543,7 @@
         );
       }
 
-      // TELEPORT to a far random spot inside zone (big jumps)
+      // teleport far away from pointer
       function teleportNo(clientX, clientY) {
         ensureNoAbsolutePositioning();
 
@@ -557,19 +553,13 @@
         const maxX = Math.max(0, z.width - b.width);
         const maxY = Math.max(0, z.height - b.height);
 
-        // Pointer in zone coordinates
         const px = clamp(clientX - z.left, 0, z.width);
         const py = clamp(clientY - z.top, 0, z.height);
 
-        // Require a BIG jump away from pointer
-        const minJump = Math.min(
-          320,
-          Math.max(220, Math.min(z.width, z.height) * 0.55)
-        );
+        const minJump = Math.min(360, Math.max(240, Math.min(z.width, z.height) * 0.60));
 
-        // Try a few random spots until far enough
         let best = { x: 0, y: 0, d: -1 };
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 30; i++) {
           const x = Math.random() * maxX;
           const y = Math.random() * maxY;
 
@@ -580,17 +570,64 @@
           if (d > best.d) best = { x, y, d };
           if (d >= minJump) {
             noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
+            noBtn.style.top  = `${y}px`;
             return;
           }
         }
 
-        // If none meet minJump, go with the farthest one
         noBtn.style.left = `${best.x}px`;
-        noBtn.style.top = `${best.y}px`;
+        noBtn.style.top  = `${best.y}px`;
       }
 
-      // Throttle so it doesn't go insane (but still feels instant)
       let lastHopAt = 0;
       function hop(e) {
-        const now = performance.now
+        const now = performance.now();
+        if (now - lastHopAt < 90) return; // snappy, still controllable
+        lastHopAt = now;
+
+        teleportNo(e.clientX, e.clientY);
+        nextNoText();
+        growYes();
+      }
+
+      // Desktop: hop when hovering ON the No button
+      noBtn.addEventListener("pointerenter", (e) => { if (!isTouch) hop(e); });
+      noBtn.addEventListener("pointermove", (e) => { if (!isTouch) hop(e); });
+
+      // Mobile: hop when trying to tap No
+      noBtn.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        hop(e);
+      });
+
+      noBtn.addEventListener("click", (e) => e.preventDefault());
+
+      /* ---------- BACK (RESET) ---------- */
+      function resetAll() {
+        result.style.display = "none";
+        zone.style.display = "block";
+        subText.style.display = "block";
+        metaRow.style.display = "flex";
+        actions.style.display = "flex";
+        interviewPanel.style.display = "block";
+        setPanel(false);
+
+        yesScale = 1;
+        yesBtn.style.transform = "translateY(-50%) scale(1)";
+
+        noIndex = 0;
+        noBtn.textContent = "No";
+
+        // Reset No back to CSS defaults
+        noBtn.style.left = "";
+        noBtn.style.top = "";
+        noBtn.style.transform = "translateY(-50%)";
+
+        lastHopAt = 0;
+      }
+
+      backBtn.addEventListener("click", resetAll);
+    });
+  </script>
+</body>
+</html>
