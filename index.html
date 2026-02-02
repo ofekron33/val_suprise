@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Will you be my Valentine?</title>
+  <title>Valentine Application 💌</title>
 
   <!-- Confetti library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -15,6 +15,7 @@
       --card: #ffffffcc;
       --yes: #ff3b7a;
       --yesHover: #ff1f68;
+      --ink: #111827;
     }
 
     * { box-sizing: border-box; }
@@ -28,6 +29,7 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       overflow: hidden;
       padding: 16px;
+      color: var(--ink);
     }
 
     #confettiCanvas {
@@ -40,7 +42,7 @@
     }
 
     .card {
-      width: min(720px, 92vw);
+      width: min(760px, 94vw);
       padding: 26px 22px;
       background: var(--card);
       backdrop-filter: blur(10px);
@@ -51,22 +53,83 @@
 
     .art {
       width: min(260px, 80vw);
-      margin: 0 auto 10px;
+      margin: 0 auto 8px;
       display: block;
       filter: drop-shadow(0 10px 14px rgba(0,0,0,.12));
     }
 
     h1 {
       font-size: clamp(26px, 4vw, 44px);
-      margin: 12px 0 10px;
+      margin: 10px 0 10px;
     }
 
     .sub {
-      margin: 0 0 18px;
+      margin: 0 auto 16px;
       font-size: 14px;
-      opacity: .78;
-      line-height: 1.35;
+      opacity: .82;
+      line-height: 1.45;
+      max-width: 54ch;
     }
+
+    .metaRow {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 10px 0 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.7);
+      box-shadow: 0 10px 20px rgba(0,0,0,.08);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .topActions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 12px 0 16px;
+    }
+
+    .secondaryBtn {
+      position: static;
+      transform: none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 800;
+      background: #111827;
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(0,0,0,.14);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: none;
+    }
+    .secondaryBtn:hover { opacity: .92; }
+
+    .ghostBtn {
+      position: static;
+      transform: none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(17,24,39,.15);
+      cursor: pointer;
+      font-weight: 800;
+      background: rgba(255,255,255,.6);
+      color: #111827;
+      box-shadow: 0 10px 24px rgba(0,0,0,.10);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: none;
+    }
+    .ghostBtn:hover { background: rgba(255,255,255,.75); }
 
     .button-zone {
       position: relative;
@@ -76,7 +139,7 @@
       touch-action: none;
     }
 
-    button {
+    button.choice {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -104,7 +167,6 @@
       left: 62%;
       background: #e5e7eb;
       color: #111827;
-      /* Smooth movement */
       transition: left .06s linear, top .06s linear, transform .12s ease, background .12s ease;
     }
 
@@ -116,7 +178,15 @@
 
     .result h2 {
       font-size: clamp(30px, 4.5vw, 46px);
-      margin: 10px 0;
+      margin: 8px 0 10px;
+    }
+
+    .result p {
+      margin: 0 auto 14px;
+      max-width: 54ch;
+      opacity: .85;
+      line-height: 1.45;
+      font-size: 14px;
     }
 
     .fireworks {
@@ -139,6 +209,8 @@
       background: #111827;
       color: #fff;
       box-shadow: 0 10px 24px rgba(0,0,0,.14);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: none;
     }
     .backBtn:hover { opacity: .92; }
 
@@ -153,6 +225,7 @@
   <canvas id="confettiCanvas"></canvas>
 
   <main class="card">
+    <!-- Cute animal + heart -->
     <svg class="art" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
         <linearGradient id="fur" x1="0" x2="1">
@@ -190,26 +263,41 @@
             fill="#ff7aa2"/>
     </svg>
 
-    <h1>nirali, will you be my valentine?</h1>
+    <h1>Shir, will you be my valentine?</h1>
 
-    <!-- More explaining text (replaceable) -->
     <p class="sub" id="subText">
-      Pick an answer. One of them is… slightly harder to choose. 😇
+     “Valentine’s Day is February 14th.
+      Here’s my application to take you out — reviewed best with a smile and an open mind 💖”
     </p>
 
+    <div class="metaRow" id="metaRow">
+      <div class="pill">📅 Date: Feb 14</div>
+      <div class="pill">📄 Application: submitted</div>
+      <div class="pill">🧠 Requirement: good vibes</div>
+    </div>
+
+    <div class="topActions" id="topActions">
+      <button class="secondaryBtn" id="cvBtn" type="button">Review my application (CV)</button>
+      <button class="ghostBtn" id="howBtn" type="button">What happens if I press “No”?</button>
+    </div>
+
     <section class="button-zone" id="zone">
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn">No</button>
+      <button class="choice" id="yesBtn" type="button">Yes</button>
+      <button class="choice" id="noBtn" type="button">No</button>
     </section>
 
     <section class="result" id="result">
       <h2>YAY! 🎉</h2>
+      <p>
+        Application approved ✅<br/>
+        Now we just need the details: time, place, and how many dessert stops are allowed.
+      </p>
       <img
         class="fireworks"
         src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif"
         alt="Fireworks"
       />
-      <button class="backBtn" id="backBtn">Back</button>
+      <button class="backBtn" id="backBtn" type="button">Back</button>
     </section>
   </main>
 
@@ -222,6 +310,21 @@
       const subText = document.getElementById("subText");
       const backBtn = document.getElementById("backBtn");
       const confettiCanvas = document.getElementById("confettiCanvas");
+      const cvBtn = document.getElementById("cvBtn");
+      const howBtn = document.getElementById("howBtn");
+      const metaRow = document.getElementById("metaRow");
+      const topActions = document.getElementById("topActions");
+
+      /* ---------- CV BUTTON ---------- */
+      // Later we’ll create cv.html. For now this will open it when it exists.
+      cvBtn.addEventListener("click", () => {
+        window.location.href = "cv.html";
+      });
+
+      howBtn.addEventListener("click", () => {
+        // light, explanatory, not cringe
+        alert("Totally allowed 😇\nBut the 'No' option might require… extra approvals.");
+      });
 
       /* ---------- CONFETTI ---------- */
       function resizeConfettiCanvas() {
@@ -278,6 +381,8 @@
       function showSuccess() {
         zone.style.display = "none";
         subText.style.display = "none";
+        metaRow.style.display = "none";
+        topActions.style.display = "none";
         result.style.display = "block";
         resizeConfettiCanvas();
         fullScreenConfetti();
@@ -285,7 +390,7 @@
 
       yesBtn.addEventListener("click", showSuccess);
 
-      /* ---------- NO BUTTON: ONLY WHEN HOVERING IT ---------- */
+      /* ---------- NO BUTTON: ONLY WHEN YOU INTERACT WITH NO ---------- */
       const noTexts = [
         "No",
         "Care to reconsider?",
@@ -298,7 +403,7 @@
 
       let noIndex = 0;
 
-      // Position in px relative to zone
+      // Position relative to zone
       let noX = null;
       let noY = null;
 
@@ -396,11 +501,9 @@
         noBtn.style.top = `${noY}px`;
       }
 
-      // Change only when actually interacting with the NO button
       let lastChangeAt = 0;
       function handleNoInteract(e) {
         const now = performance.now();
-        // throttle so it doesn't spam too fast
         if (now - lastChangeAt < 240) return;
         lastChangeAt = now;
 
@@ -409,16 +512,15 @@
         growYes();
       }
 
-      // Desktop hover (ONLY on No button)
+      // Desktop: only when pointer is on the NO button
       noBtn.addEventListener("pointerenter", (e) => {
         if (!isTouch) handleNoInteract(e);
       });
-
       noBtn.addEventListener("pointermove", (e) => {
         if (!isTouch) handleNoInteract(e);
       });
 
-      // Mobile tap (ONLY when trying to press No)
+      // Mobile: only when trying to press NO
       noBtn.addEventListener("pointerdown", (e) => {
         e.preventDefault();
         handleNoInteract(e);
@@ -426,17 +528,17 @@
 
       noBtn.addEventListener("click", (e) => e.preventDefault());
 
-      /* ---------- BACK BUTTON (RESET) ---------- */
+      /* ---------- BACK (RESET) ---------- */
       function resetAll() {
         result.style.display = "none";
         zone.style.display = "block";
         subText.style.display = "block";
+        metaRow.style.display = "flex";
+        topActions.style.display = "flex";
 
-        // reset Yes size
         yesScale = 1;
         yesBtn.style.transform = "translateY(-50%) scale(1)";
 
-        // reset No text + physics
         noIndex = 0;
         noBtn.textContent = "No";
         noX = null;
@@ -444,7 +546,6 @@
         vx = 0;
         vy = 0;
 
-        // re-init position to original CSS left/top (remove any px overrides)
         noBtn.style.left = "";
         noBtn.style.top = "";
         noBtn.style.transform = "translateY(-50%)";
