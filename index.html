@@ -34,7 +34,6 @@
       color: var(--ink);
     }
 
-    /* FULL-SCREEN CONFETTI CANVAS */
     #confettiCanvas {
       position: fixed;
       inset: 0;
@@ -45,7 +44,7 @@
     }
 
     .card {
-      width: min(840px, 94vw);
+      width: min(860px, 94vw);
       padding: 22px 20px 26px;
       background: var(--card);
       backdrop-filter: blur(10px);
@@ -65,22 +64,25 @@
 
     .badge {
       font-size: 12px;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: .2px;
       padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,.7);
+      background: rgba(255,255,255,.75);
       box-shadow: 0 10px 20px rgba(0,0,0,.08);
       border: 1px solid var(--line);
+      white-space: nowrap;
     }
+
+    /* Yellow-ish status badge */
     .badgeStatus {
-  background: rgba(255, 214, 102, .65); /* soft yellow */
-  border: 1px solid rgba(180, 140, 0, .35);
-  color: #6b4f00;
-}
+      background: rgba(255, 214, 102, .70);
+      border: 1px solid rgba(180, 140, 0, .35);
+      color: #6b4f00;
+    }
 
     .art {
-      width: min(210px, 72vw);
+      width: min(220px, 72vw);
       margin: 6px auto 6px;
       display: block;
       filter: drop-shadow(0 10px 14px rgba(0,0,0,.12));
@@ -96,7 +98,7 @@
       font-size: 14px;
       color: var(--muted);
       line-height: 1.5;
-      max-width: 66ch;
+      max-width: 70ch;
     }
 
     .metaRow {
@@ -116,7 +118,7 @@
       background: rgba(255,255,255,.75);
       box-shadow: 0 10px 20px rgba(0,0,0,.08);
       font-size: 13px;
-      font-weight: 750;
+      font-weight: 850;
       border: 1px solid var(--line);
     }
 
@@ -135,7 +137,7 @@
       border-radius: 999px;
       border: none;
       cursor: pointer;
-      font-weight: 850;
+      font-weight: 900;
       box-shadow: 0 10px 24px rgba(0,0,0,.14);
       -webkit-tap-highlight-color: transparent;
       touch-action: none;
@@ -162,7 +164,7 @@
 
     /* Interview panel */
     .panel {
-      width: min(680px, 96%);
+      width: min(700px, 96%);
       margin: 0 auto 12px;
       border-radius: 16px;
       border: 1px solid var(--line);
@@ -189,12 +191,12 @@
       gap: 10px;
       padding: 12px 14px;
       border-bottom: 1px solid var(--line);
-      font-weight: 900;
+      font-weight: 950;
     }
 
     .panelBody {
       padding: 12px 14px 14px;
-      color: rgba(17,24,39,.82);
+      color: rgba(17,24,39,.84);
       line-height: 1.45;
       font-size: 14px;
     }
@@ -211,15 +213,15 @@
       border-radius: 12px;
       background: rgba(255,255,255,.75);
       border: 1px solid var(--line);
-      font-weight: 750;
+      font-weight: 850;
       font-size: 13px;
     }
 
     /* Buttons zone */
     .button-zone {
       position: relative;
-      width: min(520px, 92%);
-      height: 150px;
+      width: min(560px, 92%);
+      height: 170px;
       margin: 4px auto 0;
       touch-action: none;
     }
@@ -230,7 +232,7 @@
       transform: translateY(-50%);
       padding: 16px 24px;
       font-size: 18px;
-      font-weight: 900;
+      font-weight: 950;
       border-radius: 999px;
       border: none;
       cursor: pointer;
@@ -239,10 +241,11 @@
       -webkit-tap-highlight-color: transparent;
       transition: transform .12s ease, background .12s ease;
       touch-action: none;
+      white-space: nowrap;
     }
 
     #yesBtn {
-      left: 18%;
+      left: 16%;
       background: var(--yes);
       color: #fff;
     }
@@ -253,7 +256,7 @@
       left: 62%;
       background: #e5e7eb;
       color: #111827;
-      transition: left .06s linear, top .06s linear, transform .12s ease, background .12s ease;
+      transition: left .04s linear, top .04s linear, transform .12s ease, background .12s ease;
     }
 
     .result {
@@ -269,7 +272,7 @@
 
     .result p {
       margin: 0 auto 14px;
-      max-width: 62ch;
+      max-width: 70ch;
       color: rgba(17,24,39,.82);
       line-height: 1.45;
       font-size: 14px;
@@ -288,7 +291,7 @@
       display: inline-block;
       padding: 12px 18px;
       font-size: 14px;
-      font-weight: 900;
+      font-weight: 950;
       border-radius: 999px;
       border: none;
       cursor: pointer;
@@ -315,7 +318,7 @@
       <div class="badge badgeStatus">Status: Under Review</div>
     </div>
 
-    <!-- Heart envelope art -->
+    <!-- Heart envelope -->
     <svg class="art" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
         <linearGradient id="env" x1="0" x2="1">
@@ -332,16 +335,12 @@
         </linearGradient>
       </defs>
 
-      <!-- envelope -->
       <rect x="60" y="78" width="200" height="120" rx="18" fill="url(#env)" />
       <path d="M60 92 L160 152 L260 92" fill="none" stroke="#f0a8bf" stroke-width="8" stroke-linecap="round" />
       <path d="M60 188 L130 126" fill="none" stroke="#f0a8bf" stroke-width="8" stroke-linecap="round" />
       <path d="M260 188 L190 126" fill="none" stroke="#f0a8bf" stroke-width="8" stroke-linecap="round" />
-
-      <!-- envelope flap shadow -->
       <path d="M60 92 L160 148 L260 92 L260 78 L60 78 Z" fill="url(#envShadow)" opacity=".35"/>
 
-      <!-- heart seal -->
       <path d="M160 122
                C160 108 176 102 186 112
                C196 102 212 108 212 122
@@ -352,9 +351,8 @@
 
     <h1>Shir, will you be my valentine?</h1>
 
-    <!-- Your exact explanation text -->
     <p class="sub" id="subText">
-  Valentine’s Day is February 14th. I’d really love to take you out that day, so I’m officially submitting my resume for you to review and then decide 💗
+      Valentine’s Day is February 14th. I’d really love to take you out that day, so I’m officially submitting my resume for you to review and then decide 💗
     </p>
 
     <div class="metaRow" id="metaRow">
@@ -369,7 +367,6 @@
       <button class="btn btnGhost" id="interviewBtn" type="button">Schedule Interview</button>
     </div>
 
-    <!-- Interview panel (Friday, wine, sunset) -->
     <section class="panel" id="interviewPanel" aria-hidden="true">
       <div class="panelHeader">
         <span>Interview Scheduled ✅</span>
@@ -486,7 +483,7 @@
       /* ---------- YES BUTTON ---------- */
       let yesScale = 1;
       function growYes() {
-        yesScale = Math.min(2.2, yesScale + 0.08);
+        yesScale = Math.min(2.8, yesScale + 0.10);
         yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
       }
 
@@ -504,7 +501,7 @@
 
       yesBtn.addEventListener("click", showSuccess);
 
-      /* ---------- NO BUTTON: SMART DODGE + ROTATING TEXT (ONLY ON NO) ---------- */
+      /* ---------- NO BUTTON: BIG TELEPORT JUMPS + ROTATING TEXT (ONLY ON NO) ---------- */
       const noTexts = [
         "No",
         "Care to reconsider?",
@@ -514,35 +511,25 @@
         "Por favor 🙏",
         "Dime que sí 💖"
       ];
-
       let noIndex = 0;
-
-      // Position in px relative to zone
-      let noX = null;
-      let noY = null;
-
-      // Smooth gliding velocity
-      let vx = 0;
-      let vy = 0;
 
       const isTouch = window.matchMedia("(pointer: coarse)").matches;
 
-      function clamp(n, min, max) {
-        return Math.max(min, Math.min(max, n));
-      }
+      function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 
-      function initNoPositionIfNeeded() {
-        if (noX !== null && noY !== null) return;
-
+      // Ensure we use left/top px positioning so teleporting is immediate.
+      function ensureNoAbsolutePositioning() {
         const z = zone.getBoundingClientRect();
         const b = noBtn.getBoundingClientRect();
 
-        noX = b.left - z.left;
-        noY = b.top - z.top;
-
-        noBtn.style.left = `${noX}px`;
-        noBtn.style.top = `${noY}px`;
-        noBtn.style.transform = "none";
+        // Convert initial CSS percentage positioning into px once
+        if (!noBtn.style.left || !noBtn.style.top) {
+          const x = b.left - z.left;
+          const y = b.top - z.top;
+          noBtn.style.left = `${x}px`;
+          noBtn.style.top = `${y}px`;
+          noBtn.style.transform = "none";
+        }
       }
 
       function nextNoText() {
@@ -552,136 +539,58 @@
         noBtn.animate(
           [
             { transform: "rotate(0deg) scale(1)" },
-            { transform: "rotate(-5deg) scale(1.03)" },
-            { transform: "rotate(4deg) scale(1.03)" },
+            { transform: "rotate(-8deg) scale(1.07)" },
+            { transform: "rotate(6deg) scale(1.07)" },
             { transform: "rotate(0deg) scale(1)" }
           ],
           { duration: 220, easing: "ease-out" }
         );
       }
 
-      function dodgeFromPointer(px, py) {
-        initNoPositionIfNeeded();
+      // TELEPORT to a far random spot inside zone (big jumps)
+      function teleportNo(clientX, clientY) {
+        ensureNoAbsolutePositioning();
 
         const z = zone.getBoundingClientRect();
         const b = noBtn.getBoundingClientRect();
 
-        const cx = b.left + b.width / 2;
-        const cy = b.top + b.height / 2;
+        const maxX = Math.max(0, z.width - b.width);
+        const maxY = Math.max(0, z.height - b.height);
 
-        // Away vector (pointer -> center)
-        let dx = cx - px;
-        let dy = cy - py;
+        // Pointer in zone coordinates
+        const px = clamp(clientX - z.left, 0, z.width);
+        const py = clamp(clientY - z.top, 0, z.height);
 
-        let mag = Math.hypot(dx, dy);
-        if (mag < 0.001) {
-          dx = (Math.random() - 0.5);
-          dy = (Math.random() - 0.5);
-          mag = Math.hypot(dx, dy);
+        // Require a BIG jump away from pointer
+        const minJump = Math.min(
+          320,
+          Math.max(220, Math.min(z.width, z.height) * 0.55)
+        );
+
+        // Try a few random spots until far enough
+        let best = { x: 0, y: 0, d: -1 };
+        for (let i = 0; i < 20; i++) {
+          const x = Math.random() * maxX;
+          const y = Math.random() * maxY;
+
+          const cx = x + b.width / 2;
+          const cy = y + b.height / 2;
+          const d = Math.hypot(cx - px, cy - py);
+
+          if (d > best.d) best = { x, y, d };
+          if (d >= minJump) {
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            return;
+          }
         }
 
-        dx /= mag;
-        dy /= mag;
-
-        // Perpendicular spice
-        const side = (Math.random() - 0.5) * 1.6;
-        const ax = dx + (-dy) * side;
-        const ay = dy + ( dx) * side;
-
-        // Stronger as Yes grows
-        const basePush = 220;
-        const push = basePush + (yesScale - 1) * 70;
-
-        // Accelerate into velocity (glide)
-        vx += ax * push * 0.08;
-        vy += ay * push * 0.08;
-
-        // Cap speed
-        const maxSpeed = 28;
-        const speed = Math.hypot(vx, vy);
-        if (speed > maxSpeed) {
-          vx = (vx / speed) * maxSpeed;
-          vy = (vy / speed) * maxSpeed;
-        }
-
-        // Apply movement
-        noX += vx;
-        noY += vy;
-
-        // Damping
-        vx *= 0.78;
-        vy *= 0.78;
-
-        // Clamp inside zone
-        const maxX = z.width - b.width;
-        const maxY = z.height - b.height;
-
-        noX = clamp(noX, 0, maxX);
-        noY = clamp(noY, 0, maxY);
-
-        noBtn.style.left = `${noX}px`;
-        noBtn.style.top = `${noY}px`;
+        // If none meet minJump, go with the farthest one
+        noBtn.style.left = `${best.x}px`;
+        noBtn.style.top = `${best.y}px`;
       }
 
-      // Change only when actually interacting with the NO button
-      let lastChangeAt = 0;
-      function handleNoInteract(e) {
-        const now = performance.now();
-        if (now - lastChangeAt < 240) return;
-        lastChangeAt = now;
-
-        dodgeFromPointer(e.clientX, e.clientY);
-        nextNoText();
-        growYes();
-      }
-
-      // Desktop: ONLY when pointer is on the NO button
-      noBtn.addEventListener("pointerenter", (e) => {
-        if (!isTouch) handleNoInteract(e);
-      });
-
-      noBtn.addEventListener("pointermove", (e) => {
-        if (!isTouch) handleNoInteract(e);
-      });
-
-      // Mobile: ONLY when trying to press NO
-      noBtn.addEventListener("pointerdown", (e) => {
-        e.preventDefault();
-        handleNoInteract(e);
-      });
-
-      noBtn.addEventListener("click", (e) => e.preventDefault());
-
-      /* ---------- BACK (RESET) ---------- */
-      function resetAll() {
-        result.style.display = "none";
-        zone.style.display = "block";
-        subText.style.display = "block";
-        metaRow.style.display = "flex";
-        actions.style.display = "flex";
-        interviewPanel.style.display = "block";
-        setPanel(false);
-
-        // reset Yes size
-        yesScale = 1;
-        yesBtn.style.transform = "translateY(-50%) scale(1)";
-
-        // reset No text + physics
-        noIndex = 0;
-        noBtn.textContent = "No";
-        noX = null;
-        noY = null;
-        vx = 0;
-        vy = 0;
-
-        // reset button positioning to CSS default
-        noBtn.style.left = "";
-        noBtn.style.top = "";
-        noBtn.style.transform = "translateY(-50%)";
-      }
-
-      backBtn.addEventListener("click", resetAll);
-    });
-  </script>
-</body>
-</html>
+      // Throttle so it doesn't go insane (but still feels instant)
+      let lastHopAt = 0;
+      function hop(e) {
+        const now = performance.now
