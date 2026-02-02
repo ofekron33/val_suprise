@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Valentine Application 💌</title>
+  <title>Will you be my Valentine?</title>
 
   <!-- Confetti library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -15,7 +15,10 @@
       --card: #ffffffcc;
       --yes: #ff3b7a;
       --yesHover: #ff1f68;
-      --ink: #111827;
+
+      --badgeBg: #ffec99;   /* soft yellow */
+      --badgeText: #6b4e00;
+      --badgeBorder: #ffd24d;
     }
 
     * { box-sizing: border-box; }
@@ -26,12 +29,13 @@
       display: grid;
       place-items: center;
       background: radial-gradient(circle at top, var(--bg2), var(--bg1));
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-family: system-ui, sans-serif;
       overflow: hidden;
       padding: 16px;
-      color: var(--ink);
+      color: #111827;
     }
 
+    /* FULL-SCREEN CONFETTI CANVAS */
     #confettiCanvas {
       position: fixed;
       inset: 0;
@@ -42,7 +46,7 @@
     }
 
     .card {
-      width: min(760px, 94vw);
+      width: min(720px, 92vw);
       padding: 26px 22px;
       background: var(--card);
       backdrop-filter: blur(10px);
@@ -51,95 +55,68 @@
       box-shadow: 0 18px 60px rgba(0,0,0,.15);
     }
 
-    .art {
-      width: min(260px, 80vw);
-      margin: 0 auto 8px;
-      display: block;
-      filter: drop-shadow(0 10px 14px rgba(0,0,0,.12));
-    }
-
-    h1 {
-      font-size: clamp(26px, 4vw, 44px);
-      margin: 10px 0 10px;
-    }
-
-    .sub {
-      margin: 0 auto 16px;
-      font-size: 14px;
-      opacity: .82;
-      line-height: 1.45;
-      max-width: 54ch;
-    }
-
-    .metaRow {
+    .status-row {
       display: flex;
       justify-content: center;
       gap: 10px;
       flex-wrap: wrap;
-      margin: 10px 0 18px;
+      margin-bottom: 14px;
     }
 
     .pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 12px;
+      padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,.7);
-      box-shadow: 0 10px 20px rgba(0,0,0,.08);
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(255,255,255,.85);
+      font-weight: 750;
       font-size: 13px;
-      font-weight: 650;
     }
 
-    .topActions {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 12px 0 16px;
-    }
-
-    .secondaryBtn {
-      position: static;
-      transform: none;
-      padding: 12px 16px;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
       border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-weight: 800;
-      background: #111827;
-      color: #fff;
-      box-shadow: 0 10px 24px rgba(0,0,0,.14);
-      -webkit-tap-highlight-color: transparent;
-      touch-action: none;
+      background: var(--badgeBg);
+      color: var(--badgeText);
+      border: 1px solid var(--badgeBorder);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .02em;
     }
-    .secondaryBtn:hover { opacity: .92; }
 
-    .ghostBtn {
-      position: static;
-      transform: none;
-      padding: 12px 16px;
+    .dot {
+      width: 10px;
+      height: 10px;
       border-radius: 999px;
-      border: 1px solid rgba(17,24,39,.15);
-      cursor: pointer;
-      font-weight: 800;
-      background: rgba(255,255,255,.6);
-      color: #111827;
-      box-shadow: 0 10px 24px rgba(0,0,0,.10);
-      -webkit-tap-highlight-color: transparent;
-      touch-action: none;
+      background: #f59e0b; /* amber dot */
+      box-shadow: 0 0 0 4px rgba(245,158,11,.25);
     }
-    .ghostBtn:hover { background: rgba(255,255,255,.75); }
+
+    .art {
+      width: min(280px, 80vw);
+      margin: 2px auto 10px;
+      display: block;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,.12));
+    }
+
+    h1 {
+      font-size: clamp(26px, 4vw, 44px);
+      margin: 12px 0 18px;
+    }
 
     .button-zone {
       position: relative;
       width: min(520px, 92%);
-      height: 150px;
+      height: 160px;
       margin: 0 auto;
       touch-action: none;
     }
 
-    button.choice {
+    button {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -153,7 +130,7 @@
       user-select: none;
       -webkit-tap-highlight-color: transparent;
       transition: transform .12s ease, background .12s ease;
-      touch-action: none;
+      white-space: nowrap;
     }
 
     #yesBtn {
@@ -167,7 +144,6 @@
       left: 62%;
       background: #e5e7eb;
       color: #111827;
-      transition: left .06s linear, top .06s linear, transform .12s ease, background .12s ease;
     }
 
     .result {
@@ -178,41 +154,16 @@
 
     .result h2 {
       font-size: clamp(30px, 4.5vw, 46px);
-      margin: 8px 0 10px;
-    }
-
-    .result p {
-      margin: 0 auto 14px;
-      max-width: 54ch;
-      opacity: .85;
-      line-height: 1.45;
-      font-size: 14px;
+      margin: 10px 0;
     }
 
     .fireworks {
       width: min(380px, 90vw);
-      margin: 0 auto 14px;
+      margin: 0 auto;
       display: block;
       border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
     }
-
-    .backBtn {
-      position: static;
-      transform: none;
-      display: inline-block;
-      padding: 12px 18px;
-      font-size: 14px;
-      font-weight: 800;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      background: #111827;
-      color: #fff;
-      box-shadow: 0 10px 24px rgba(0,0,0,.14);
-      -webkit-tap-highlight-color: transparent;
-      touch-action: none;
-    }
-    .backBtn:hover { opacity: .92; }
 
     @keyframes pop {
       from { transform: scale(.96); opacity: 0; }
@@ -225,333 +176,182 @@
   <canvas id="confettiCanvas"></canvas>
 
   <main class="card">
-    <!-- Cute animal + heart -->
-    <svg class="art" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- STATUS -->
+    <div class="status-row">
+      <span class="pill">🧑‍💼 Candidate: <strong>nirali</strong></span>
+      <span class="pill">
+        <span class="dot" aria-hidden="true"></span>
+        Candidate status:
+        <span class="badge">In process</span>
+      </span>
+    </div>
+
+    <!-- PRETTIER ART: HEART ENVELOPE -->
+    <svg class="art" viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg" aria-label="Love letter">
       <defs>
-        <linearGradient id="fur" x1="0" x2="1">
-          <stop offset="0" stop-color="#f7c7a1"/>
-          <stop offset="1" stop-color="#f2a97b"/>
-        </linearGradient>
-        <linearGradient id="heart" x1="0" x2="1">
-          <stop offset="0" stop-color="#ff4d7d"/>
+        <linearGradient id="gPink" x1="0" x2="1">
+          <stop offset="0" stop-color="#ff5b8d"/>
           <stop offset="1" stop-color="#ff1f68"/>
+        </linearGradient>
+        <linearGradient id="gPaper" x1="0" x2="1">
+          <stop offset="0" stop-color="#fff7fb"/>
+          <stop offset="1" stop-color="#ffe7f1"/>
         </linearGradient>
       </defs>
 
-      <path d="M250 50 C250 33 270 25 282 38
-               C294 25 314 33 314 50
-               C314 78 282 92 282 106
-               C282 92 250 78 250 50Z"
-            fill="url(#heart)"/>
+      <ellipse cx="180" cy="215" rx="120" ry="22" fill="rgba(0,0,0,.08)"/>
 
-      <path d="M90 120 C90 70 140 40 190 60
-               C240 40 290 70 290 120
-               C290 180 240 210 190 210
-               C140 210 90 180 90 120Z"
-            fill="url(#fur)"/>
+      <path d="M70 95 Q180 40 290 95 V200 Q290 215 275 215 H85 Q70 215 70 200 Z"
+            fill="url(#gPaper)"/>
 
-      <path d="M110 92 L95 55 L140 78 Z" fill="#f2a97b"/>
-      <path d="M270 92 L285 55 L240 78 Z" fill="#f2a97b"/>
+      <path d="M70 95 L180 165 L290 95 Q180 60 70 95 Z"
+            fill="#ffd1e3"/>
 
-      <circle cx="160" cy="130" r="8"/>
-      <circle cx="220" cy="130" r="8"/>
+      <path d="M70 200 L150 140" stroke="rgba(0,0,0,.08)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M290 200 L210 140" stroke="rgba(0,0,0,.08)" stroke-width="6" stroke-linecap="round"/>
 
-      <path d="M190 144 C186 144 182 148 182 152
-               C182 160 190 164 190 170
-               C190 164 198 160 198 152
-               C198 148 194 144 190 144Z"
-            fill="#ff7aa2"/>
+      <path d="M180 118
+               C180 104 196 96 208 106
+               C220 96 236 104 236 118
+               C236 144 208 154 208 174
+               C208 154 180 144 180 118Z"
+            fill="url(#gPink)"/>
     </svg>
 
-    <h1>Shir, will you be my valentine?</h1>
-
-    <p class="sub" id="subText">
-     “Valentine’s Day is February 14th.
-      Here’s my application to take you out — reviewed best with a smile and an open mind 💖”
-    </p>
-
-    <div class="metaRow" id="metaRow">
-      <div class="pill">📅 Date: Feb 14</div>
-      <div class="pill">📄 Application: submitted</div>
-      <div class="pill">🧠 Requirement: good vibes</div>
-    </div>
-
-    <div class="topActions" id="topActions">
-      <button class="secondaryBtn" id="cvBtn" type="button">Review my application (CV)</button>
-      <button class="ghostBtn" id="howBtn" type="button">What happens if I press “No”?</button>
-    </div>
+    <h1>nirali will you be my valentine?</h1>
 
     <section class="button-zone" id="zone">
-      <button class="choice" id="yesBtn" type="button">Yes</button>
-      <button class="choice" id="noBtn" type="button">No</button>
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
     </section>
 
     <section class="result" id="result">
       <h2>YAY! 🎉</h2>
-      <p>
-        Application approved ✅<br/>
-        Now we just need the details: time, place, and how many dessert stops are allowed.
-      </p>
       <img
         class="fireworks"
         src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif"
         alt="Fireworks"
       />
-      <button class="backBtn" id="backBtn" type="button">Back</button>
     </section>
   </main>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const zone = document.getElementById("zone");
-      const yesBtn = document.getElementById("yesBtn");
-      const noBtn = document.getElementById("noBtn");
-      const result = document.getElementById("result");
-      const subText = document.getElementById("subText");
-      const backBtn = document.getElementById("backBtn");
-      const confettiCanvas = document.getElementById("confettiCanvas");
-      const cvBtn = document.getElementById("cvBtn");
-      const howBtn = document.getElementById("howBtn");
-      const metaRow = document.getElementById("metaRow");
-      const topActions = document.getElementById("topActions");
+    const zone = document.getElementById("zone");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const result = document.getElementById("result");
 
-      /* ---------- CV BUTTON ---------- */
-      // Later we’ll create cv.html. For now this will open it when it exists.
-      cvBtn.addEventListener("click", () => {
-        window.location.href = "cv.html";
-      });
+    /* ---------- CONFETTI ---------- */
+    const confettiCanvas = document.getElementById("confettiCanvas");
 
-      howBtn.addEventListener("click", () => {
-        // light, explanatory, not cringe
-        alert("Totally allowed 😇\nBut the 'No' option might require… extra approvals.");
-      });
+    function resizeConfettiCanvas() {
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      confettiCanvas.width = Math.floor(window.innerWidth * dpr);
+      confettiCanvas.height = Math.floor(window.innerHeight * dpr);
+      confettiCanvas.style.width = "100vw";
+      confettiCanvas.style.height = "100vh";
+    }
 
-      /* ---------- CONFETTI ---------- */
-      function resizeConfettiCanvas() {
-        const dpr = Math.max(1, window.devicePixelRatio || 1);
-        confettiCanvas.width = Math.floor(window.innerWidth * dpr);
-        confettiCanvas.height = Math.floor(window.innerHeight * dpr);
-        confettiCanvas.style.width = "100vw";
-        confettiCanvas.style.height = "100vh";
-      }
+    resizeConfettiCanvas();
+    window.addEventListener("resize", resizeConfettiCanvas);
+    window.addEventListener("orientationchange", () => setTimeout(resizeConfettiCanvas, 150));
 
-      resizeConfettiCanvas();
-      window.addEventListener("resize", resizeConfettiCanvas);
-      window.addEventListener("orientationchange", () => setTimeout(resizeConfettiCanvas, 150));
+    const confettiInstance = confetti.create(confettiCanvas, {
+      resize: false,
+      useWorker: true
+    });
 
-      const hasConfetti = typeof window.confetti === "function";
-      const confettiInstance = hasConfetti
-        ? window.confetti.create(confettiCanvas, { resize: false, useWorker: true })
-        : null;
+    function fullScreenConfetti() {
+      const end = Date.now() + 1600;
 
-      function fullScreenConfetti() {
-        if (!confettiInstance) return;
+      (function frame() {
+        confettiInstance({
+          particleCount: 14,
+          spread: 100,
+          startVelocity: 50,
+          ticks: 200,
+          origin: { x: Math.random(), y: Math.random() * 0.35 }
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
 
-        const end = Date.now() + 1600;
+      setTimeout(() => {
+        confettiInstance({
+          particleCount: 320,
+          spread: 150,
+          startVelocity: 62,
+          ticks: 230,
+          origin: { x: 0.5, y: 0.55 }
+        });
+      }, 260);
+    }
 
-        (function frame() {
-          confettiInstance({
-            particleCount: 12,
-            spread: 90,
-            startVelocity: 45,
-            ticks: 180,
-            origin: { x: Math.random(), y: Math.random() * 0.3 }
-          });
-          if (Date.now() < end) requestAnimationFrame(frame);
-        })();
+    /* ---------- YES BUTTON GROWS ---------- */
+    let yesScale = 1;
+    function growYes() {
+      yesScale = Math.min(2.4, yesScale + 0.12);
+      yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
+    }
 
-        setTimeout(() => {
-          confettiInstance({
-            particleCount: 300,
-            spread: 140,
-            startVelocity: 60,
-            ticks: 220,
-            origin: { x: 0.5, y: 0.55 }
-          });
-        }, 300);
-      }
+    /* ---------- NO BUTTON: MUCH MORE MOVEMENT ---------- */
+    function teleportNoAwayFrom(px, py) {
+      const z = zone.getBoundingClientRect();
+      const b = noBtn.getBoundingClientRect();
 
-      /* ---------- YES BUTTON ---------- */
-      let yesScale = 1;
-      function growYes() {
-        yesScale = Math.min(2.2, yesScale + 0.08);
-        yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
-      }
+      // Try to find a position far from the pointer (strong movement)
+      for (let i = 0; i < 12; i++) {
+        const candLeft = Math.random() * (z.width - b.width);
+        const candTop  = Math.random() * (z.height - b.height);
 
-      function showSuccess() {
-        zone.style.display = "none";
-        subText.style.display = "none";
-        metaRow.style.display = "none";
-        topActions.style.display = "none";
-        result.style.display = "block";
-        resizeConfettiCanvas();
-        fullScreenConfetti();
-      }
+        const cx = z.left + candLeft + b.width / 2;
+        const cy = z.top + candTop + b.height / 2;
 
-      yesBtn.addEventListener("click", showSuccess);
-
-      /* ---------- NO BUTTON: ONLY WHEN YOU INTERACT WITH NO ---------- */
-      const noTexts = [
-        "No",
-        "Care to reconsider?",
-        "Third time’s a charm?",
-        "Did you check my resume?",
-        "Did you get a second opinion on my resume?",
-        "Por favor 🙏",
-        "Dime que sí 💖"
-      ];
-
-      let noIndex = 0;
-
-      // Position relative to zone
-      let noX = null;
-      let noY = null;
-
-      // Smooth gliding velocity
-      let vx = 0;
-      let vy = 0;
-
-      const isTouch = window.matchMedia("(pointer: coarse)").matches;
-
-      function clamp(n, min, max) {
-        return Math.max(min, Math.min(max, n));
-      }
-
-      function initNoPositionIfNeeded() {
-        if (noX !== null && noY !== null) return;
-
-        const z = zone.getBoundingClientRect();
-        const b = noBtn.getBoundingClientRect();
-
-        noX = b.left - z.left;
-        noY = b.top - z.top;
-
-        noBtn.style.left = `${noX}px`;
-        noBtn.style.top = `${noY}px`;
-        noBtn.style.transform = "none";
-      }
-
-      function nextNoText() {
-        noIndex = (noIndex + 1) % noTexts.length;
-        noBtn.textContent = noTexts[noIndex];
-
-        noBtn.animate(
-          [
-            { transform: "rotate(0deg) scale(1)" },
-            { transform: "rotate(-5deg) scale(1.03)" },
-            { transform: "rotate(4deg) scale(1.03)" },
-            { transform: "rotate(0deg) scale(1)" }
-          ],
-          { duration: 220, easing: "ease-out" }
-        );
-      }
-
-      function dodgeFromPointer(px, py) {
-        initNoPositionIfNeeded();
-
-        const z = zone.getBoundingClientRect();
-        const b = noBtn.getBoundingClientRect();
-
-        const cx = b.left + b.width / 2;
-        const cy = b.top + b.height / 2;
-
-        let dx = cx - px;
-        let dy = cy - py;
-
-        let mag = Math.hypot(dx, dy);
-        if (mag < 0.001) {
-          dx = (Math.random() - 0.5);
-          dy = (Math.random() - 0.5);
-          mag = Math.hypot(dx, dy);
+        const d = Math.hypot(cx - px, cy - py);
+        if (d > 260) {
+          noBtn.style.left = candLeft + "px";
+          noBtn.style.top = candTop + "px";
+          noBtn.style.transform = "none";
+          return;
         }
-
-        dx /= mag;
-        dy /= mag;
-
-        const side = (Math.random() - 0.5) * 0.9;
-        const ax = dx + (-dy) * side;
-        const ay = dy + ( dx) * side;
-
-        const basePush = 130;
-        const push = basePush + (yesScale - 1) * 35;
-
-        vx += ax * push * 0.08;
-        vy += ay * push * 0.08;
-
-        const maxSpeed = 16;
-        const speed = Math.hypot(vx, vy);
-        if (speed > maxSpeed) {
-          vx = (vx / speed) * maxSpeed;
-          vy = (vy / speed) * maxSpeed;
-        }
-
-        noX += vx;
-        noY += vy;
-
-        vx *= 0.78;
-        vy *= 0.78;
-
-        const maxX = z.width - b.width;
-        const maxY = z.height - b.height;
-
-        noX = clamp(noX, 0, maxX);
-        noY = clamp(noY, 0, maxY);
-
-        noBtn.style.left = `${noX}px`;
-        noBtn.style.top = `${noY}px`;
       }
 
-      let lastChangeAt = 0;
-      function handleNoInteract(e) {
-        const now = performance.now();
-        if (now - lastChangeAt < 240) return;
-        lastChangeAt = now;
+      // fallback: still move somewhere
+      noBtn.style.left = (Math.random() * (z.width - b.width)) + "px";
+      noBtn.style.top  = (Math.random() * (z.height - b.height)) + "px";
+      noBtn.style.transform = "none";
+    }
 
-        dodgeFromPointer(e.clientX, e.clientY);
-        nextNoText();
+    function onPointerThreat(e) {
+      const b = noBtn.getBoundingClientRect();
+      const d = Math.hypot(
+        (b.left + b.width / 2) - e.clientX,
+        (b.top + b.height / 2) - e.clientY
+      );
+
+      // Big trigger radius => it runs away sooner
+      if (d < 260) {
+        teleportNoAwayFrom(e.clientX, e.clientY);
         growYes();
       }
+    }
 
-      // Desktop: only when pointer is on the NO button
-      noBtn.addEventListener("pointerenter", (e) => {
-        if (!isTouch) handleNoInteract(e);
-      });
-      noBtn.addEventListener("pointermove", (e) => {
-        if (!isTouch) handleNoInteract(e);
-      });
+    zone.addEventListener("pointermove", onPointerThreat);
 
-      // Mobile: only when trying to press NO
-      noBtn.addEventListener("pointerdown", (e) => {
-        e.preventDefault();
-        handleNoInteract(e);
-      });
+    // Also dodge if you hover or try to press it directly
+    noBtn.addEventListener("pointerenter", e => teleportNoAwayFrom(e.clientX, e.clientY));
+    noBtn.addEventListener("pointerdown", e => {
+      e.preventDefault();
+      teleportNoAwayFrom(e.clientX, e.clientY);
+      growYes();
+    });
+    noBtn.addEventListener("click", e => e.preventDefault());
 
-      noBtn.addEventListener("click", (e) => e.preventDefault());
-
-      /* ---------- BACK (RESET) ---------- */
-      function resetAll() {
-        result.style.display = "none";
-        zone.style.display = "block";
-        subText.style.display = "block";
-        metaRow.style.display = "flex";
-        topActions.style.display = "flex";
-
-        yesScale = 1;
-        yesBtn.style.transform = "translateY(-50%) scale(1)";
-
-        noIndex = 0;
-        noBtn.textContent = "No";
-        noX = null;
-        noY = null;
-        vx = 0;
-        vy = 0;
-
-        noBtn.style.left = "";
-        noBtn.style.top = "";
-        noBtn.style.transform = "translateY(-50%)";
-      }
-
-      backBtn.addEventListener("click", resetAll);
+    /* ---------- YES CLICK ---------- */
+    yesBtn.addEventListener("click", () => {
+      zone.style.display = "none";
+      result.style.display = "block";
+      resizeConfettiCanvas();
+      fullScreenConfetti();
     });
   </script>
 </body>
