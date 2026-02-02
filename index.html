@@ -53,6 +53,12 @@
       box-shadow: 0 18px 60px rgba(0,0,0,.15);
       position: relative;
     }
+    
+    .badgeApproved {
+  background: rgba(134, 239, 172, .75); /* soft green */
+  border: 1px solid rgba(22, 163, 74, .45);
+  color: #065f46;
+}
 
     .topbar {
       display: flex;
@@ -314,7 +320,7 @@
   <main class="card">
     <div class="topbar">
       <div class="badge">Valentine Application Portal</div>
-      <div class="badge badgeStatus">Status: Under Review</div>
+      <div class="badge badgeStatus" id="statusBadge">Status: Under Review</div>
     </div>
 
     <!-- Heart envelope -->
@@ -492,6 +498,10 @@
       }
 
       function showSuccess() {
+        const statusBadge = document.getElementById("statusBadge");
+        statusBadge.textContent = "Status: Approved";
+        statusBadge.classList.remove("badgeStatus");
+        statusBadge.classList.add("badgeApproved");
         zone.style.display = "none";
         subText.style.display = "none";
         metaRow.style.display = "none";
@@ -637,4 +647,5 @@
   </script>
 </body>
 </html>
+
 
