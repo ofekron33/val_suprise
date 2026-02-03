@@ -22,17 +22,19 @@
 
     * { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      min-height: 100svh;
-      display: grid;
-      place-items: center;
-      background: radial-gradient(circle at top, var(--bg2), var(--bg1));
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      overflow: hidden;
-      padding: 16px;
-      color: var(--ink);
-    }
+body {
+  margin: 0;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at top, var(--bg2), var(--bg1));
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px;
+  color: var(--ink);
+}
 
     #confettiCanvas {
       position: fixed;
@@ -49,16 +51,23 @@
   color: #9f1239;
 }
 
-    .card {
-      width: min(860px, 94vw);
-      padding: 22px 20px 26px;
-      background: var(--card);
-      backdrop-filter: blur(10px);
-      border-radius: 22px;
-      text-align: center;
-      box-shadow: 0 18px 60px rgba(0,0,0,.15);
-      position: relative;
-    }
+.card {
+  width: min(860px, 94vw);
+  padding: 22px 20px 26px;
+  background: var(--card);
+  backdrop-filter: blur(10px);
+  border-radius: 22px;
+  text-align: center;
+  box-shadow: 0 18px 60px rgba(0,0,0,.15);
+  position: relative;
+
+  /* iPhone fix */
+  max-height: calc(100svh - 32px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
     
     .badgeApproved {
   background: rgba(134, 239, 172, .75); /* soft green */
@@ -236,6 +245,13 @@
       margin: 4px auto 0;
       touch-action: none;
     }
+.art {
+  width: min(200px, 70vw);
+  margin: 10px auto 6px;
+  display: block;
+  filter: drop-shadow(0 10px 14px rgba(0,0,0,.12));
+  border-radius: 14px;
+}
 
     button.choice {
       position: absolute;
@@ -346,7 +362,12 @@
     </div>
 
     <!-- Heart envelope -->
-    <svg class="art" viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <img
+  class="art"
+  src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXc1dGI0OGcxZzJldGs1a2EyaWdjM3I0aDJ2NmExeGZoOXRxOWgxMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1JmGiBtqTuehfYxuy9/giphy.gif"
+  alt="Cute Valentine gif"
+/>
+    
       <defs>
         <linearGradient id="env" x1="0" x2="1">
           <stop offset="0" stop-color="#ffffff"/>
@@ -379,13 +400,14 @@
 <h1>Valentine’s Day — Explained 💌</h1>
 
 <p class="sub" id="subText">
-  Valentine’s Day is on February 14th — a day dedicated to choosing someone you want to spend a special date with.
+  Valentine’s Day is on Feb 14, and I’d really love to take you out that day.
   <br /><br />
-  I’d really love to take you out that day, so instead of asking normally, I’m officially submitting my resume for your review.
+  Knowing you’re an excellent recruiter,
+  I figured the best way to improve my chances was to officially submit an application
+  for the role of <b>your Valentine’s date</b>.
   <br /><br />
-  Shir, will you be my Valentine? 💗
+  <b>So, Shir — will you be my Valentine? 💗</b>
 </p>
-
     <div class="metaRow" id="metaRow">
       <div class="pill">👤 Candidate: Ofek</div>
       <div class="pill">🧑‍💼 Reviewer: Shir</div>
@@ -694,6 +716,7 @@ function hop(e) {
   </script>
 </body>
 </html>
+
 
 
 
