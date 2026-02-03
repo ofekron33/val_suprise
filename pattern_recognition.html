@@ -6,55 +6,75 @@
   <title>Pattern Recognition — Offline Mode</title>
 
   <style>
+    :root{
+      --bg1:#ffd6e7;
+      --bg2:#ffeef6;
+      --ink:#111827;
+      --muted:rgba(17,24,39,.72);
+      --line:rgba(17,24,39,.12);
+      --card:rgba(255,255,255,.86);
+    }
+
+    *{ box-sizing:border-box; }
+
     body{
       margin:0;
       min-height:100svh;
       display:grid;
       place-items:center;
-      background: radial-gradient(circle at top, #ffeef6, #ffd6e7);
+      background: radial-gradient(circle at top, var(--bg2), var(--bg1));
       font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      color:#111827;
+      color:var(--ink);
       padding:16px;
     }
 
     .card{
-      width:min(900px, 96vw);
-      padding:24px;
-      background:rgba(255,255,255,.85);
+      width:min(980px, 96vw);
+      padding:26px 22px;
+      background:var(--card);
       backdrop-filter: blur(10px);
       border-radius:22px;
       box-shadow:0 18px 60px rgba(0,0,0,.15);
       text-align:center;
+      border:1px solid rgba(17,24,39,.08);
     }
 
     h1{
-      margin:0 0 8px;
-      font-size: clamp(26px, 4vw, 38px);
+      margin:0 0 6px;
+      font-size: clamp(26px, 4vw, 40px);
+      letter-spacing:-.02em;
     }
 
     .sub{
-      margin:0 0 20px;
-      color:rgba(17,24,39,.75);
+      margin:0;
+      color:var(--muted);
       font-size:14px;
+      line-height:1.55;
     }
 
     .images{
       display:grid;
       gap:16px;
-      margin:18px 0 24px;
+      margin:20px 0 22px;
     }
 
-    @media (min-width: 720px){
-      .images{
-        grid-template-columns:1fr 1fr;
-      }
+    @media (min-width: 800px){
+      .images{ grid-template-columns:1fr 1fr; }
     }
 
-    .imgWrap{
+    .imgCard{
+      text-align:left;
       border-radius:18px;
       overflow:hidden;
-      box-shadow:0 12px 30px rgba(0,0,0,.12);
       background:#fff;
+      box-shadow:0 12px 30px rgba(0,0,0,.12);
+      border:1px solid rgba(17,24,39,.08);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .imgCard:hover{
+      transform: translateY(-2px);
+      box-shadow:0 16px 40px rgba(0,0,0,.14);
     }
 
     .imgWrap img{
@@ -63,10 +83,32 @@
       display:block;
     }
 
-    .caption{
-      margin-top:8px;
+    .captionBox{
+      padding:12px 14px 14px;
+    }
+
+    .captionTitle{
+      font-weight:950;
       font-size:13px;
+      margin:0 0 4px;
+    }
+
+    .captionSub{
+      margin:0;
+      font-size:12px;
       color:rgba(17,24,39,.65);
+      line-height:1.45;
+    }
+
+    .note{
+      margin:6px 0 0;
+      font-size:14px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .note strong{
+      color:var(--ink);
     }
 
     .footer{
@@ -74,7 +116,7 @@
       justify-content:space-between;
       gap:10px;
       flex-wrap:wrap;
-      margin-top:10px;
+      margin-top:18px;
     }
 
     .btn{
@@ -100,29 +142,40 @@
   <main class="card">
 
     <h1>Pattern Recognition</h1>
-    <p class="sub">
-      Offline mode. High confidence.
-    </p>
+    <p class="sub">Offline mode. High confidence.</p>
 
     <div class="images">
-      <div>
+
+      <div class="imgCard">
         <div class="imgWrap">
           <img src="mona_lisa.png" alt="Mona Lisa">
         </div>
-        <div class="caption">Classic reference sample</div>
+        <div class="captionBox">
+          <p class="captionTitle">Classic reference sample</p>
+          <p class="captionSub">
+            Familiar presence. The kind you don’t rush past.
+          </p>
+        </div>
       </div>
 
-      <div>
+      <div class="imgCard">
         <div class="imgWrap">
           <img src="shir_art.png" alt="Modern portrait">
         </div>
-        <div class="caption">Modern real world example</div>
+        <div class="captionBox">
+          <p class="captionTitle">Modern real-world example</p>
+          <p class="captionSub">
+            Expressive energy — you notice when she’s there.
+          </p>
+        </div>
       </div>
+
     </div>
 
-    <p class="sub">
-      Not drawing conclusions.<br>
-      Just presenting data.
+    <p class="note">
+      <strong>Visual similarity detected:</strong> 0.93<br>
+      Not drawing conclusions — just sharing the output.<br>
+      For the full scoring logic, feel free to reach out.
     </p>
 
     <div class="footer">
