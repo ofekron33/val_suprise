@@ -29,9 +29,7 @@
       place-items: center;
       background: radial-gradient(circle at top, var(--bg2), var(--bg1));
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      overflow-x: hidden;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden; /* important: only the card scrolls */
       padding: 16px;
       color: var(--ink);
     }
@@ -43,12 +41,6 @@
       height: 100vh;
       pointer-events: none;
       z-index: 9999;
-    }
-
-    .badgePink {
-      background: rgba(255, 59, 122, .15);
-      border: 1px solid rgba(255, 59, 122, .45);
-      color: #9f1239;
     }
 
     .card {
@@ -66,12 +58,6 @@
       overflow-y: auto;
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
-    }
-
-    .badgeApproved {
-      background: rgba(134, 239, 172, .75);
-      border: 1px solid rgba(22, 163, 74, .45);
-      color: #065f46;
     }
 
     .topbar {
@@ -100,6 +86,18 @@
       color: #6b4f00;
     }
 
+    .badgeApproved {
+      background: rgba(134, 239, 172, .75);
+      border: 1px solid rgba(22, 163, 74, .45);
+      color: #065f46;
+    }
+
+    .badgePink {
+      background: rgba(255, 59, 122, .15);
+      border: 1px solid rgba(255, 59, 122, .45);
+      color: #9f1239;
+    }
+
     .art {
       width: min(200px, 70vw);
       margin: 10px auto 6px;
@@ -114,11 +112,52 @@
     }
 
     .sub {
-      margin: 0 auto 14px;
+      margin: 0 auto 10px;
       font-size: 14px;
       color: var(--muted);
       line-height: 1.5;
       max-width: 70ch;
+    }
+
+    /* Decision zone placed EARLY so it's visible */
+    .button-zone {
+      position: relative;
+      width: min(560px, 92%);
+      height: 150px;
+      margin: 10px auto 14px;
+      touch-action: none;
+    }
+
+    button.choice {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 16px 24px;
+      font-size: 18px;
+      font-weight: 950;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(0,0,0,.14);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s ease, background .12s ease;
+      touch-action: none;
+      white-space: nowrap;
+    }
+
+    #yesBtn {
+      left: 16%;
+      background: var(--yes);
+      color: #fff;
+    }
+    #yesBtn:hover { background: var(--yesHover); }
+
+    #noBtn {
+      left: 62%;
+      background: #e5e7eb;
+      color: #111827;
+      transition: left .03s linear, top .03s linear, transform .12s ease, background .12s ease;
     }
 
     .metaRow {
@@ -168,19 +207,11 @@
 
     .btn:active { transform: scale(.98); }
 
-    .btnPrimary {
-      background: #111827;
+    #cvBtn, #interviewBtn {
+      background: var(--yes);
       color: #fff;
     }
-
-    .btnGhost {
-      background: rgba(255,255,255,.7);
-      border: 1px solid var(--line);
-      color: #111827;
-      box-shadow: 0 10px 24px rgba(0,0,0,.10);
-    }
-
-    .btnGhost:hover { background: rgba(255,255,255,.85); }
+    #cvBtn:hover, #interviewBtn:hover { background: var(--yesHover); }
 
     /* Interview panel */
     .panel {
@@ -237,63 +268,6 @@
       font-size: 13px;
     }
 
-    /* Sticky dock for decision buttons (keeps them visible) */
-    .decisionDock{
-      position: sticky;
-      bottom: 12px;
-      z-index: 20;
-      width: min(560px, 92%);
-      margin: 10px auto 0;
-      padding: 10px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.72);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(17,24,39,.10);
-      box-shadow: 0 12px 30px rgba(0,0,0,.10);
-    }
-
-    .button-zone {
-      position: relative;
-      width: 100%;
-      height: 170px;
-      margin: 0;
-      touch-action: none;
-      background: transparent;
-    }
-
-    button.choice {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      padding: 16px 24px;
-      font-size: 18px;
-      font-weight: 950;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 10px 24px rgba(0,0,0,.14);
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      transition: transform .12s ease, background .12s ease;
-      touch-action: none;
-      white-space: nowrap;
-    }
-
-    #yesBtn {
-      left: 16%;
-      background: var(--yes);
-      color: #fff;
-    }
-
-    #yesBtn:hover { background: var(--yesHover); }
-
-    #noBtn {
-      left: 62%;
-      background: #e5e7eb;
-      color: #111827;
-      transition: left .03s linear, top .03s linear, transform .12s ease, background .12s ease;
-    }
-
     .result {
       display: none;
       margin-top: 14px;
@@ -343,15 +317,7 @@
     }
 
     @media (max-width: 520px) {
-      .button-zone { height: 220px; }
-    }
-
-    #cvBtn, #interviewBtn {
-      background: var(--yes);
-      color: #fff;
-    }
-    #cvBtn:hover, #interviewBtn:hover {
-      background: var(--yesHover);
+      .button-zone { height: 190px; }
     }
   </style>
 </head>
@@ -383,6 +349,12 @@
       <b>So, Shir — will you be my Valentine? 💗</b>
     </p>
 
+    <!-- YES/NO NOW APPEARS IMMEDIATELY -->
+    <section class="button-zone" id="zone">
+      <button class="choice" id="yesBtn" type="button">Yes</button>
+      <button class="choice" id="noBtn" type="button">No</button>
+    </section>
+
     <div class="metaRow" id="metaRow">
       <div class="pill">👤 Candidate: Ofek</div>
       <div class="pill">🧑‍💼 Reviewer: Shir</div>
@@ -391,14 +363,14 @@
     </div>
 
     <div class="actions" id="actions">
-      <button class="btn btnPrimary" id="cvBtn" type="button">Review my resume (CV)</button>
-      <button class="btn btnGhost" id="interviewBtn" type="button">Schedule Interview</button>
+      <button class="btn" id="cvBtn" type="button">Review my resume (CV)</button>
+      <button class="btn" id="interviewBtn" type="button">Schedule Interview</button>
     </div>
 
     <section class="panel" id="interviewPanel" aria-hidden="true">
       <div class="panelHeader">
         <span class="badge badgePink">Interview Scheduled ✅</span>
-        <button class="btn btnGhost" id="closePanelBtn" type="button" style="padding:8px 12px; font-size:12px; box-shadow:none;">
+        <button class="btn" id="closePanelBtn" type="button" style="padding:8px 12px; font-size:12px; box-shadow:none; background: rgba(255,255,255,.7); border:1px solid rgba(17,24,39,.10); color:#111827;">
           Close
         </button>
       </div>
@@ -412,14 +384,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Sticky decision area -->
-    <div class="decisionDock">
-      <section class="button-zone" id="zone">
-        <button class="choice" id="yesBtn" type="button">Yes</button>
-        <button class="choice" id="noBtn" type="button">No</button>
-      </section>
-    </div>
 
     <section class="result" id="result">
       <h2>Approved 🎉</h2>
@@ -523,13 +487,11 @@
         statusBadge.classList.remove("badgeStatus");
         statusBadge.classList.add("badgeApproved");
 
-        // hide everything above
-        zone.parentElement.style.display = "none";
+        zone.style.display = "none";
         subText.style.display = "none";
         metaRow.style.display = "none";
         actions.style.display = "none";
         interviewPanel.style.display = "none";
-
         result.style.display = "block";
 
         resizeConfettiCanvas();
@@ -652,7 +614,7 @@
 
       function resetAll() {
         result.style.display = "none";
-        zone.parentElement.style.display = "block";
+        zone.style.display = "block";
         subText.style.display = "block";
         metaRow.style.display = "flex";
         actions.style.display = "flex";
