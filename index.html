@@ -334,9 +334,10 @@
 
     .fireworks {
       width: min(380px, 90vw);
-      margin: 0 auto 12px;
+      margin: 0 auto 6px;
       display: block;
       border-radius: 14px;
+      .backBtn { margin-top: 0px; }
     }
 
     .jabal {
@@ -497,8 +498,11 @@
       const scrollHint = document.getElementById("scrollHint");
 
       const audio = document.getElementById("yesAudio");
+      const isTouch =
+  window.matchMedia("(pointer: coarse)").matches ||
+  ("ontouchstart" in window) ||
+  (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
 
-      const isTouch = window.matchMedia("(pointer: coarse)").matches;
 
       /* ---------- CV BUTTON ---------- */
       cvBtn.addEventListener("click", () => {
@@ -562,11 +566,19 @@
 
       /* ---------- Scroll hint logic ---------- */
       function updateScrollHint() {
-        // don't show hint on result screen
-        if (result.style.display === "block") {
-          scrollHint.style.display = "none";
-          return;
-        }
+  // show hint ONLY on touch devices
+  if (!isTouch) {
+    scrollHint.style.display = "none";
+    scrollHint.setAttribute("aria-hidden", "true");
+    return;
+  }
+
+  // don't show hint on result screen
+  if (result.style.display === "block") {
+    scrollHint.style.display = "none";
+    scrollHint.setAttribute("aria-hidden", "true");
+    return;
+  }
 
         const canScroll = card.scrollHeight > card.clientHeight + 8;
         const nearBottom = (card.scrollTop + card.clientHeight) >= (card.scrollHeight - 24);
@@ -578,6 +590,19 @@
       card.addEventListener("scroll", updateScrollHint, { passive: true });
       window.addEventListener("resize", updateScrollHint);
       setTimeout(updateScrollHint, 250);
+      // Re-check after everything really loads (images change heights)
+      window.addEventListener("load", updateScrollHint);
+
+// Re-check when any image inside the card finishes loading
+      card.querySelectorAll("img").forEach((img) => {
+      if (img.complete) return;
+      img.addEventListener("load", updateScrollHint, { once: true });
+      img.addEventListener("error", updateScrollHint, { once: true });
+});
+
+// Extra: re-check a few frames later (helps iOS layout settle)
+requestAnimationFrame(() => requestAnimationFrame(updateScrollHint));
+
 
       /* ---------- YES BUTTON ---------- */
       let yesScale = 1;
@@ -778,4 +803,5 @@
   </script>
 </body>
 </html>
+
 
