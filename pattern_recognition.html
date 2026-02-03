@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Pattern Recognition — Offline Mode</title>
+
+  <style>
+    body{
+      margin:0;
+      min-height:100svh;
+      display:grid;
+      place-items:center;
+      background: radial-gradient(circle at top, #ffeef6, #ffd6e7);
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      color:#111827;
+      padding:16px;
+    }
+
+    .card{
+      width:min(900px, 96vw);
+      padding:24px;
+      background:rgba(255,255,255,.85);
+      backdrop-filter: blur(10px);
+      border-radius:22px;
+      box-shadow:0 18px 60px rgba(0,0,0,.15);
+      text-align:center;
+    }
+
+    h1{
+      margin:0 0 8px;
+      font-size: clamp(26px, 4vw, 38px);
+    }
+
+    .sub{
+      margin:0 0 20px;
+      color:rgba(17,24,39,.75);
+      font-size:14px;
+    }
+
+    .images{
+      display:grid;
+      gap:16px;
+      margin:18px 0 24px;
+    }
+
+    @media (min-width: 720px){
+      .images{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    .imgWrap{
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 12px 30px rgba(0,0,0,.12);
+      background:#fff;
+    }
+
+    .imgWrap img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .caption{
+      margin-top:8px;
+      font-size:13px;
+      color:rgba(17,24,39,.65);
+    }
+
+    .footer{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .btn{
+      padding:12px 16px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      font-weight:900;
+      background:#111827;
+      color:#fff;
+      box-shadow:0 10px 24px rgba(0,0,0,.14);
+    }
+
+    .btnGhost{
+      background:rgba(255,255,255,.75);
+      color:#111827;
+      border:1px solid rgba(17,24,39,.15);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+
+    <h1>Pattern Recognition</h1>
+    <p class="sub">
+      Offline mode. High confidence.
+    </p>
+
+    <div class="images">
+      <div>
+        <div class="imgWrap">
+          <img src="mona_lisa.png" alt="Mona Lisa">
+        </div>
+        <div class="caption">Classic reference sample</div>
+      </div>
+
+      <div>
+        <div class="imgWrap">
+          <img src="shir_art.png" alt="Modern portrait">
+        </div>
+        <div class="caption">Modern real-world example</div>
+      </div>
+    </div>
+
+    <p class="sub">
+      Not drawing conclusions.<br>
+      Just presenting data.
+    </p>
+
+    <div class="footer">
+      <button class="btn btnGhost" onclick="history.back()">← Go Back</button>
+      <button class="btn" onclick="window.location.href='index.html'">Back to Portal</button>
+    </div>
+
+  </main>
+</body>
+</html>
