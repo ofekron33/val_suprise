@@ -22,19 +22,19 @@
 
     * { box-sizing: border-box; }
 
-body {
-  margin: 0;
-  min-height: 100svh;
-  display: grid;
-  place-items: center;
-  background: radial-gradient(circle at top, var(--bg2), var(--bg1));
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 16px;
-  color: var(--ink);
-}
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at top, var(--bg2), var(--bg1));
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 16px;
+      color: var(--ink);
+    }
 
     #confettiCanvas {
       position: fixed;
@@ -44,36 +44,35 @@ body {
       pointer-events: none;
       z-index: 9999;
     }
-    
+
     .badgePink {
-  background: rgba(255, 59, 122, .15);
-  border: 1px solid rgba(255, 59, 122, .45);
-  color: #9f1239;
-}
+      background: rgba(255, 59, 122, .15);
+      border: 1px solid rgba(255, 59, 122, .45);
+      color: #9f1239;
+    }
 
-.card {
-  width: min(860px, 94vw);
-  padding: 22px 20px 26px;
-  background: var(--card);
-  backdrop-filter: blur(10px);
-  border-radius: 22px;
-  text-align: center;
-  box-shadow: 0 18px 60px rgba(0,0,0,.15);
-  position: relative;
+    .card {
+      width: min(860px, 94vw);
+      padding: 22px 20px 26px;
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border-radius: 22px;
+      text-align: center;
+      box-shadow: 0 18px 60px rgba(0,0,0,.15);
+      position: relative;
 
-  /* iPhone fix */
-  max-height: calc(100svh - 32px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-}
+      /* iPhone fix */
+      max-height: calc(100svh - 32px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
 
-    
     .badgeApproved {
-  background: rgba(134, 239, 172, .75); /* soft green */
-  border: 1px solid rgba(22, 163, 74, .45);
-  color: #065f46;
-}
+      background: rgba(134, 239, 172, .75);
+      border: 1px solid rgba(22, 163, 74, .45);
+      color: #065f46;
+    }
 
     .topbar {
       display: flex;
@@ -82,17 +81,6 @@ body {
       gap: 12px;
       margin-bottom: 12px;
     }
-    .button-zone{
-  position: sticky;
-  bottom: 12px;
-  background: rgba(255,255,255,.70);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(17,24,39,.10);
-  border-radius: 18px;
-  padding: 10px 10px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.10);
-  z-index: 6;
-}
 
     .badge {
       font-size: 12px;
@@ -106,7 +94,6 @@ body {
       white-space: nowrap;
     }
 
-    /* Yellow-ish status badge */
     .badgeStatus {
       background: rgba(255, 214, 102, .70);
       border: 1px solid rgba(180, 140, 0, .35);
@@ -114,10 +101,11 @@ body {
     }
 
     .art {
-      width: min(220px, 72vw);
-      margin: 6px auto 6px;
+      width: min(200px, 70vw);
+      margin: 10px auto 6px;
       display: block;
       filter: drop-shadow(0 10px 14px rgba(0,0,0,.12));
+      border-radius: 14px;
     }
 
     h1 {
@@ -249,20 +237,29 @@ body {
       font-size: 13px;
     }
 
+    /* Sticky dock for decision buttons (keeps them visible) */
+    .decisionDock{
+      position: sticky;
+      bottom: 12px;
+      z-index: 20;
+      width: min(560px, 92%);
+      margin: 10px auto 0;
+      padding: 10px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(17,24,39,.10);
+      box-shadow: 0 12px 30px rgba(0,0,0,.10);
+    }
+
     .button-zone {
       position: relative;
-      width: min(560px, 92%);
+      width: 100%;
       height: 170px;
-      margin: 4px auto 0;
+      margin: 0;
       touch-action: none;
+      background: transparent;
     }
-.art {
-  width: min(200px, 70vw);
-  margin: 10px auto 6px;
-  display: block;
-  filter: drop-shadow(0 10px 14px rgba(0,0,0,.12));
-  border-radius: 14px;
-}
 
     button.choice {
       position: absolute;
@@ -344,22 +341,18 @@ body {
       from { transform: scale(.96); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
-    @media (max-width: 520px) {
-  .button-zone {
-    height: 220px;   /* was 170px */
-  }
-}
-    #cvBtn,
-#interviewBtn {
-  background: var(--yes);
-  color: #fff;
-}
 
-#cvBtn:hover,
-#interviewBtn:hover {
-  background: var(--yesHover);
-}
-    
+    @media (max-width: 520px) {
+      .button-zone { height: 220px; }
+    }
+
+    #cvBtn, #interviewBtn {
+      background: var(--yes);
+      color: #fff;
+    }
+    #cvBtn:hover, #interviewBtn:hover {
+      background: var(--yesHover);
+    }
   </style>
 </head>
 
@@ -372,53 +365,24 @@ body {
       <div class="badge badgeStatus" id="statusBadge">Status: Under Review</div>
     </div>
 
-    <!-- Heart envelope -->
     <img
-  class="art"
-  src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXc1dGI0OGcxZzJldGs1a2EyaWdjM3I0aDJ2NmExeGZoOXRxOWgxMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1JmGiBtqTuehfYxuy9/giphy.gif"
-  alt="Cute Valentine gif"
-/>
-    
-      <defs>
-        <linearGradient id="env" x1="0" x2="1">
-          <stop offset="0" stop-color="#ffffff"/>
-          <stop offset="1" stop-color="#ffe3ef"/>
-        </linearGradient>
-        <linearGradient id="envShadow" x1="0" x2="1">
-          <stop offset="0" stop-color="#f6b2c7"/>
-          <stop offset="1" stop-color="#ff6b97"/>
-        </linearGradient>
-        <linearGradient id="heart" x1="0" x2="1">
-          <stop offset="0" stop-color="#ff4d7d"/>
-          <stop offset="1" stop-color="#ff1f68"/>
-        </linearGradient>
-      </defs>
+      class="art"
+      src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXc1dGI0OGcxZzJldGs1a2EyaWdjM3I0aDJ2NmExeGZoOXRxOWgxMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1JmGiBtqTuehfYxuy9/giphy.gif"
+      alt="Cute Valentine gif"
+    />
 
-      <rect x="60" y="78" width="200" height="120" rx="18" fill="url(#env)" />
-      <path d="M60 92 L160 152 L260 92" fill="none" stroke="#f0a8bf" stroke-width="8" stroke-linecap="round" />
-      <path d="M60 188 L130 126" fill="none" stroke="#f0a8bf" stroke-width="8" stroke-linecap="round" />
-      <path d="M260 188 L190 126" fill="none" stroke="#f0a8bf" stroke-width="8" stroke-linecap="round" />
-      <path d="M60 92 L160 148 L260 92 L260 78 L60 78 Z" fill="url(#envShadow)" opacity=".35"/>
+    <h1>Valentine’s Day — Explained 💌</h1>
 
-      <path d="M160 122
-               C160 108 176 102 186 112
-               C196 102 212 108 212 122
-               C212 144 186 154 186 166
-               C186 154 160 144 160 122Z"
-            fill="url(#heart)"/>
-    </svg>
+    <p class="sub" id="subText">
+      Valentine’s Day is on Feb 14, and I’d really love to take you out that day.
+      <br /><br />
+      Knowing you’re an excellent recruiter,
+      I figured the best way to improve my chances was to officially submit an application
+      for the role of <b>your Valentine’s date</b>.
+      <br /><br />
+      <b>So, Shir — will you be my Valentine? 💗</b>
+    </p>
 
-<h1>Valentine’s Day — Explained 💌</h1>
-
-<p class="sub" id="subText">
-  Valentine’s Day is on Feb 14, and I’d really love to take you out that day.
-  <br /><br />
-  Knowing you’re an excellent recruiter,
-  I figured the best way to improve my chances was to officially submit an application
-  for the role of <b>your Valentine’s date</b>.
-  <br /><br />
-  <b>So, Shir — will you be my Valentine? 💗</b>
-</p>
     <div class="metaRow" id="metaRow">
       <div class="pill">👤 Candidate: Ofek</div>
       <div class="pill">🧑‍💼 Reviewer: Shir</div>
@@ -449,10 +413,13 @@ body {
       </div>
     </section>
 
-    <section class="button-zone" id="zone">
-      <button class="choice" id="yesBtn" type="button">Yes</button>
-      <button class="choice" id="noBtn" type="button">No</button>
-    </section>
+    <!-- Sticky decision area -->
+    <div class="decisionDock">
+      <section class="button-zone" id="zone">
+        <button class="choice" id="yesBtn" type="button">Yes</button>
+        <button class="choice" id="noBtn" type="button">No</button>
+      </section>
+    </div>
 
     <section class="result" id="result">
       <h2>Approved 🎉</h2>
@@ -486,15 +453,12 @@ body {
       const interviewPanel = document.getElementById("interviewPanel");
       const closePanelBtn = document.getElementById("closePanelBtn");
 
-      // one touch flag (ONLY ONCE)
       const isTouch = window.matchMedia("(pointer: coarse)").matches;
 
-      /* ---------- CV BUTTON ---------- */
       cvBtn.addEventListener("click", () => {
         window.location.href = "cv.html";
       });
 
-      /* ---------- Interview panel ---------- */
       function setPanel(open) {
         interviewPanel.classList.toggle("open", open);
         interviewPanel.setAttribute("aria-hidden", String(!open));
@@ -504,7 +468,6 @@ body {
       });
       closePanelBtn.addEventListener("click", () => setPanel(false));
 
-      /* ---------- CONFETTI ---------- */
       function resizeConfettiCanvas() {
         const dpr = Math.max(1, window.devicePixelRatio || 1);
         confettiCanvas.width = Math.floor(window.innerWidth * dpr);
@@ -524,7 +487,6 @@ body {
 
       function fullScreenConfetti() {
         if (!confettiInstance) return;
-
         const end = Date.now() + 1600;
 
         (function frame() {
@@ -549,7 +511,6 @@ body {
         }, 300);
       }
 
-      /* ---------- YES BUTTON ---------- */
       let yesScale = 1;
       function growYes() {
         yesScale = Math.min(2.8, yesScale + 0.10);
@@ -561,11 +522,14 @@ body {
         statusBadge.textContent = "Status: Approved";
         statusBadge.classList.remove("badgeStatus");
         statusBadge.classList.add("badgeApproved");
-        zone.style.display = "none";
+
+        // hide everything above
+        zone.parentElement.style.display = "none";
         subText.style.display = "none";
         metaRow.style.display = "none";
         actions.style.display = "none";
         interviewPanel.style.display = "none";
+
         result.style.display = "block";
 
         resizeConfettiCanvas();
@@ -574,7 +538,6 @@ body {
 
       yesBtn.addEventListener("click", showSuccess);
 
-      /* ---------- NO BUTTON: TELEPORT BIG JUMPS ---------- */
       const noTexts = [
         "No",
         "Care to reconsider?",
@@ -621,76 +584,65 @@ body {
       }
 
       function teleportNo(clientX, clientY) {
-  ensureNoAbsolutePositioning();
+        ensureNoAbsolutePositioning();
 
-  const z = zone.getBoundingClientRect();
-  const b = noBtn.getBoundingClientRect();
+        const z = zone.getBoundingClientRect();
+        const b = noBtn.getBoundingClientRect();
 
-  const maxX = Math.max(0, z.width - b.width);
-  let maxY = Math.max(0, z.height - b.height);
+        const maxX = Math.max(0, z.width - b.width);
+        let maxY = Math.max(0, z.height - b.height);
 
-  // On touch devices: keep teleports in the upper part of the zone
-  if (isTouch) {
-    maxY = Math.floor(maxY * 0.55);
-  }
+        if (isTouch) maxY = Math.floor(maxY * 0.55);
 
-  const px = clamp(clientX - z.left, 0, z.width);
-  const py = clamp(clientY - z.top, 0, z.height);
+        const px = clamp(clientX - z.left, 0, z.width);
+        const py = clamp(clientY - z.top, 0, z.height);
 
-  const minJump = Math.min(
-    360,
-    Math.max(240, Math.min(z.width, z.height) * 0.60)
-  );
+        const minJump = Math.min(360, Math.max(240, Math.min(z.width, z.height) * 0.60));
 
-  let best = { x: 0, y: 0, d: -1 };
+        let best = { x: 0, y: 0, d: -1 };
 
-  for (let i = 0; i < 30; i++) {
-    const x = Math.random() * maxX;
-    let y = Math.random() * maxY;   // ✅ let (not const)
+        for (let i = 0; i < 30; i++) {
+          const x = Math.random() * maxX;
+          let y = Math.random() * maxY;
 
-    // Extra iPhone safety: keep it above the bottom of the screen
-    if (isTouch) {
-      const safetyBottom = window.innerHeight - 90;
-      const maxAllowedTop = safetyBottom - z.top - b.height;
-      y = Math.min(Math.max(y, 0), Math.max(0, maxAllowedTop)); // ✅ proper clamp
-    }
+          if (isTouch) {
+            const safetyBottom = window.innerHeight - 90;
+            const maxAllowedTop = safetyBottom - z.top - b.height;
+            y = Math.min(Math.max(y, 0), Math.max(0, maxAllowedTop));
+          }
 
-    const cx = x + b.width / 2;
-    const cy = y + b.height / 2;
-    const d = Math.hypot(cx - px, cy - py);
+          const cx = x + b.width / 2;
+          const cy = y + b.height / 2;
+          const d = Math.hypot(cx - px, cy - py);
 
-    if (d > best.d) best = { x, y, d };
+          if (d > best.d) best = { x, y, d };
 
-    if (d >= minJump) {
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top  = `${y}px`;
-      return;
-    }
-  }
+          if (d >= minJump) {
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top  = `${y}px`;
+            return;
+          }
+        }
 
-  // fallback: farthest found
-  noBtn.style.left = `${best.x}px`;
-  noBtn.style.top  = `${best.y}px`;
-}
+        noBtn.style.left = `${best.x}px`;
+        noBtn.style.top  = `${best.y}px`;
+      }
 
       let lastHopAt = 0;
 
-function hop(e) {
-  const now = performance.now();
-  if (now - lastHopAt < 90) return; // throttle
-  lastHopAt = now;
+      function hop(e) {
+        const now = performance.now();
+        if (now - lastHopAt < 90) return;
+        lastHopAt = now;
 
-  teleportNo(e.clientX, e.clientY);
-  nextNoText();
-  growYes();
-}
+        teleportNo(e.clientX, e.clientY);
+        nextNoText();
+        growYes();
+      }
 
-
-      // Desktop: hop when hovering ON the No button
       noBtn.addEventListener("pointerenter", (e) => { if (!isTouch) hop(e); });
       noBtn.addEventListener("pointermove", (e) => { if (!isTouch) hop(e); });
 
-      // Mobile: hop when trying to tap No
       noBtn.addEventListener("pointerdown", (e) => {
         e.preventDefault();
         hop(e);
@@ -698,10 +650,9 @@ function hop(e) {
 
       noBtn.addEventListener("click", (e) => e.preventDefault());
 
-      /* ---------- BACK (RESET) ---------- */
       function resetAll() {
         result.style.display = "none";
-        zone.style.display = "block";
+        zone.parentElement.style.display = "block";
         subText.style.display = "block";
         metaRow.style.display = "flex";
         actions.style.display = "flex";
@@ -714,7 +665,6 @@ function hop(e) {
         noIndex = 0;
         noBtn.textContent = "No";
 
-        // Reset No back to CSS defaults
         noBtn.style.left = "";
         noBtn.style.top = "";
         noBtn.style.transform = "translateY(-50%)";
@@ -727,11 +677,3 @@ function hop(e) {
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
