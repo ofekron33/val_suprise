@@ -1,116 +1,392 @@
-<section class="section" aria-label="Experience">
-  <h2>Experience</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Resume Review — Ofek 💼</title>
 
-  <div class="expGrid">
+  <style>
+    :root{
+      --bg1:#ffd6e7;
+      --bg2:#ffeef6;
+      --card:#ffffffcc;
+      --ink:#111827;
+      --muted:rgba(17,24,39,.72);
+      --line:rgba(17,24,39,.10);
+      --accent:#ff3b7a;
+      --accentHover:#ff1f68;
+    }
 
-    <article class="expCard">
-      <div class="expHeader">
-        <div class="expTitle">🍸 Cocktail Bar — First Date</div>
-        <div class="expRole">Jan 25 • Role: First-Date Prospect</div>
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      min-height:100svh;
+      display:grid;
+      place-items:center;
+      background: radial-gradient(circle at top, var(--bg2), var(--bg1));
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      color:var(--ink);
+      padding:16px;
+    }
+
+    .card{
+      width:min(1000px, 96vw);
+      padding:22px 20px 26px;
+      background:var(--card);
+      backdrop-filter: blur(10px);
+      border-radius:22px;
+      box-shadow:0 18px 60px rgba(0,0,0,.15);
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .badge{
+      font-size:12px;
+      font-weight:900;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.75);
+      border:1px solid var(--line);
+      box-shadow:0 10px 20px rgba(0,0,0,.08);
+    }
+
+    h1{
+      margin:6px 0 10px;
+      font-size: clamp(26px, 4vw, 44px);
+    }
+
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.55;
+      max-width:80ch;
+    }
+
+    /* ---------- Sections ---------- */
+    .section{
+      margin-top:18px;
+      padding-top:16px;
+      border-top:1px solid var(--line);
+    }
+
+    .section h2{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:0 0 12px;
+      font-size:18px;
+    }
+
+    .section h2::after{
+      content:"";
+      height:1px;
+      flex:1;
+      background:var(--line);
+      border-radius:999px;
+    }
+
+    /* ---------- Grid ---------- */
+    .expGrid{
+      display:grid;
+      gap:14px;
+    }
+
+    @media (min-width: 860px){
+      .expGrid{ grid-template-columns:1fr 1fr; }
+    }
+
+    /* ---------- Cards ---------- */
+    .expCard{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.70);
+      border-radius:16px;
+      box-shadow:0 12px 30px rgba(0,0,0,.08);
+      padding:14px 14px 12px;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+
+    .expCard:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(0,0,0,.12);
+    }
+
+    .expHeader{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .expTitle{
+      font-weight:950;
+      font-size:15px;
+      line-height:1.2;
+    }
+
+    .expMeta{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .pillMini{
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:900;
+      background:rgba(255,255,255,.75);
+      border:1px solid var(--line);
+    }
+
+    .pillDate{
+      background:rgba(255,59,122,.12);
+      border-color:rgba(255,59,122,.35);
+      color:#9f1239;
+    }
+
+    /* ---------- KPI list ---------- */
+    .kpiList{
+      list-style:none;
+      margin:0;
+      padding:0;
+      display:grid;
+      gap:8px;
+    }
+
+    .kpiList li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:10px;
+      border-radius:12px;
+      background:rgba(255,255,255,.55);
+      border:1px solid rgba(17,24,39,.08);
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      margin-top:5px;
+      background:rgba(17,24,39,.25);
+      flex:0 0 auto;
+    }
+
+    .kpiText{
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    /* ---------- Links ---------- */
+    .link{
+      color:var(--accent);
+      font-weight:900;
+      text-decoration:none;
+      border-bottom:2px solid rgba(255,59,122,.25);
+    }
+
+    .link:hover{
+      color:var(--accentHover);
+      border-bottom-color:rgba(255,31,104,.35);
+    }
+
+    /* ---------- Chips ---------- */
+    .chipWrap{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:8px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:900;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.75);
+      box-shadow:0 10px 20px rgba(0,0,0,.06);
+      transition:transform .12s ease;
+    }
+
+    .chip:hover{ transform:translateY(-1px); }
+
+    .miniDot{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:rgba(17,24,39,.25);
+    }
+
+    .chipGood{
+      background:rgba(134,239,172,.22);
+      border-color:rgba(22,163,74,.25);
+    }
+
+    .chipBad{
+      background:rgba(255,59,122,.12);
+      border-color:rgba(255,59,122,.25);
+    }
+
+    .footer{
+      margin-top:22px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:12px 16px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      font-weight:900;
+      background:#111827;
+      color:#fff;
+      box-shadow:0 10px 24px rgba(0,0,0,.14);
+    }
+
+    .btnGhost{
+      background:rgba(255,255,255,.75);
+      color:#111827;
+      border:1px solid var(--line);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+
+    <div class="topbar">
+      <div class="badge">Resume Review (CV)</div>
+      <div class="badge">Candidate: Ofek • Reviewer: Shir</div>
+    </div>
+
+    <h1>About Me</h1>
+    <p class="sub">
+      I value connection, effort, and showing up with intention.
+      I enjoy good food, quiet laughs, meaningful conversations, and making the people
+      I’m with feel comfortable and appreciated.
+      I don’t rush things — but when I care, I’m fully present.
+    </p>
+
+    <!-- EXPERIENCE -->
+    <section class="section">
+      <h2>Experience</h2>
+
+      <div class="expGrid">
+
+        <article class="expCard">
+          <div class="expHeader">
+            <div class="expTitle">🍸 Cocktail Bar — First Date</div>
+            <div class="expMeta">
+              <span class="pillMini pillDate">Jan 25</span>
+              <span class="pillMini">First-Date Prospect</span>
+            </div>
+          </div>
+          <ul class="kpiList">
+            <li><span class="dot"></span><div class="kpiText"><b>Multitasking:</b> got completely lost in your face while still contributing occasionally.</div></li>
+            <li><span class="dot"></span><div class="kpiText"><b>Learning speed:</b> your smile caused immediate loss of focus.</div></li>
+            <li><span class="dot"></span><div class="kpiText"><b>Teamwork:</b> felt easy, fun, and natural (<a class="link" href="eshet_hayel.html">Eshet Hayel — click me</a>).</div></li>
+          </ul>
+        </article>
+
+        <article class="expCard">
+          <div class="expHeader">
+            <div class="expTitle">🍣 Sushi Date</div>
+            <div class="expMeta">
+              <span class="pillMini pillDate">Jan 27</span>
+              <span class="pillMini">Foodie Specialist</span>
+            </div>
+          </div>
+          <ul class="kpiList">
+            <li><span class="dot"></span><div class="kpiText"><b>Attentiveness:</b> gluten-aware decision making.</div></li>
+            <li><span class="dot"></span><div class="kpiText"><b>Listening:</b> strong and consistent.</div></li>
+            <li><span class="dot"></span><div class="kpiText"><b>Social:</b> integrated well with friends and roommate.</div></li>
+            <li><span class="dot"></span><div class="kpiText"><b>Outcome:</b> attraction confirmed.</div></li>
+          </ul>
+        </article>
+
+        <article class="expCard">
+          <div class="expHeader">
+            <div class="expTitle">🌸 Your House — Unofficial Date</div>
+            <div class="expMeta">
+              <span class="pillMini pillDate">Jan 29</span>
+              <span class="pillMini">Overqualified but Clueless Expert</span>
+            </div>
+          </div>
+          <ul class="kpiList">
+            <li><span class="dot"></span><div class="kpiText"><b>Preparation:</b> flowers delivered on arrival.</div></li>
+            <li><span class="dot"></span><div class="kpiText"><b>Adaptability:</b> immediate improvement after feedback (<a class="link" href="eshet_hayel.html">Eshet Hayel — click me</a>).</div></li>
+            <li><span class="dot"></span><div class="kpiText"><b>Loyalty:</b> would gladly stay longer.</div></li>
+          </ul>
+        </article>
+
+        <article class="expCard">
+          <div class="expHeader">
+            <div class="expTitle">🎬 Movie Date</div>
+            <div class="expMeta">
+              <span class="pillMini pillDate">Feb 1</span>
+              <span class="pillMini">Adaptable Driver & Hand-Holder</span>
+            </div>
+          </div>
+          <ul class="kpiList">
+            <li><span class="dot"></span><div class="kpiText"><b>Driving:</b> confident under distractions.</div></li>
+            <li><span class="dot"></span><div class="kpiText"><b>Flexibility:</b> adapted seamlessly.</div></li>
+            <li><span class="dot"></span><div class="kpiText"><b>Outcome:</b> clear desire to continue.</div></li>
+          </ul>
+        </article>
+
       </div>
-      <ul>
-        <li>Demonstrated advanced multitasking: got completely lost in your face while still contributing occasionally to the conversation.</li>
-        <li>Learned quickly that your smile causes temporary loss of focus.</li>
-        <li>
-          Strong collaborative environment — partner made it feel easy, fun, and natural
-          (<a class="link" href="eshet_hayel.html">Eshet Hayel — click me</a>).
-        </li>
-      </ul>
-    </article>
+    </section>
 
-    <article class="expCard">
-      <div class="expHeader">
-        <div class="expTitle">🍣 Sushi Date</div>
-        <div class="expRole">Jan 27 • Role: Foodie Specialist</div>
+    <!-- PROS & CONS -->
+    <section class="section">
+      <h2>Pros & Cons</h2>
+
+      <div class="expGrid">
+
+        <article class="expCard">
+          <div class="expTitle">✅ Pros</div>
+          <div class="chipWrap">
+            <span class="chip chipGood"><span class="miniDot"></span>Very good memory</span>
+            <span class="chip chipGood"><span class="miniDot"></span>Does not shout during football</span>
+            <span class="chip chipGood"><span class="miniDot"></span>Cute most of the time</span>
+            <span class="chip chipGood"><span class="miniDot"></span>Loves food</span>
+            <span class="chip chipGood"><span class="miniDot"></span>Comes with a very cute dog</span>
+          </div>
+        </article>
+
+        <article class="expCard">
+          <div class="expTitle">❌ Cons</div>
+          <div class="chipWrap">
+            <span class="chip chipBad"><span class="miniDot"></span>Gluten knowledge (in training)</span>
+            <span class="chip chipBad"><span class="miniDot"></span>Very tight hugs</span>
+            <span class="chip chipBad"><span class="miniDot"></span>Long messages</span>
+          </div>
+        </article>
+
       </div>
-      <ul>
-        <li>Displayed attentiveness and care (gluten-aware decision making).</li>
-        <li>Strong listening skills in a relaxed dining environment.</li>
-        <li>Gradual emotional openness (slowlyyyy, but genuinely).</li>
-        <li>Successful interaction with external stakeholders (friends and roommate).</li>
-        <li>Attraction confirmed through hands-on experience.</li>
-      </ul>
-    </article>
+    </section>
 
-    <article class="expCard">
-      <div class="expHeader">
-        <div class="expTitle">🌸 Your House — Unofficial Date</div>
-        <div class="expRole">Jan 29 • Role: Overqualified but Clueless Expert</div>
-      </div>
-      <ul>
-        <li>Thoughtful preparation and attention to detail (flowers delivered on arrival).</li>
-        <li>Maintained respectful posture under high-attraction conditions (hands-crossed compliance).</li>
-        <li>
-          Adapted quickly after receiving direct feedback (learning speed: impressive —
-          (<a class="link" href="eshet_hayel.html">Eshet Hayel — click me</a>)).
-        </li>
-        <li>Displayed strong loyalty indicators — would gladly remain, but engagement concluded via successful exit (acquisition).</li>
-        <li>Memorable close-range engagement — exceptional eye contact (hard to forget).</li>
-      </ul>
-    </article>
+    <div class="footer">
+      <button class="btn btnGhost" onclick="window.location.href='index.html'">← Back to Portal</button>
+      <button class="btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to Top ↑</button>
+    </div>
 
-    <article class="expCard">
-      <div class="expHeader">
-        <div class="expTitle">🎬 Movie Date</div>
-        <div class="expRole">Feb 1 • Role: Adaptable Driver & Professional Hand-Holder</div>
-      </div>
-      <ul>
-        <li>Demonstrated safe and confident driving under real-world distractions (arm touches, hair strokes — focus maintained).</li>
-        <li>Learned that red is my new favorite color (which says a lot coming from a Maccabi Tel Aviv fan).</li>
-        <li>Adapted seamlessly to changing plans (walk postponed, movie selected — flexibility confirmed).</li>
-        <li>Maintained continuous, comfortable physical connection throughout engagement.</li>
-        <li><b>Outcome:</b> clear desire to continue and deepen this connection.</li>
-      </ul>
-    </article>
-
-  </div>
-</section>
-<section class="section" aria-label="Pros and Cons">
-  <h2>Pros & Cons</h2>
-
-  <div class="expGrid">
-
-    <!-- PROS -->
-    <article class="expCard">
-      <div class="expHeader">
-        <div class="expTitle">✅ Pros</div>
-      </div>
-      <ul>
-        <li>Very good memory.</li>
-        <li>Does not shout during football games.</li>
-        <li>Birthday is conveniently close.</li>
-        <li>Funny on rare occasions.</li>
-        <li>Cute most of the time.</li>
-        <li>Knows how to dress (sometimes).</li>
-        <li>Modest by default.</li>
-        <li>Sporty — will join you for Pilates once a year.</li>
-        <li>Loves food.</li>
-        <li>Comes with a very cute dog.</li>
-        <li>
-          Second-best last name in history
-          (obviously Goldberg is first).
-        </li>
-      </ul>
-    </article>
-
-    <!-- CONS -->
-    <article class="expCard">
-      <div class="expHeader">
-        <div class="expTitle">❌ Cons (Areas for Improvement)</div>
-      </div>
-      <ul>
-        <li>Occasionally kisses with teeth (temporary issue — actively working on it).</li>
-        <li>Limited gluten knowledge (currently in training).</li>
-        <li>Glasses: functional, but open to optimization.</li>
-        <li>Hugs: tend to be very tight (honestly, arguably a pro).</li>
-        <li>Tends to send long messages instead of voice notes (actively improving).</li>
-        <li>Playlists are… not a strong point.</li>
-        <li>
-          Doesn’t really know how to take good photos
-          (but that’s fine — you look good in any light and from any angle).
-        </li>
-      </ul>
-    </article>
-
-  </div>
-</section>
+  </main>
+</body>
+</html>
